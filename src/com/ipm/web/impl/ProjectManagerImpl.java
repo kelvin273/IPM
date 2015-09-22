@@ -21,8 +21,8 @@ public class ProjectManagerImpl implements ProjectManager {
 	}
 
 	@Override
-	public void createProject(Project project) {
-		// TODO Auto-generated method stub
+	public void createProject(String username, Project project) {
+		projectDao.createProject(username, project);
 
 	}
 

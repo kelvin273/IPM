@@ -1,9 +1,11 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <body>
-	<h1>Projects JSP</h1>
+	<h1>New Project</h1>
 
 	<sec:authorize access="hasRole('ROLE_USER')">
 		<!-- For login user -->
@@ -27,14 +29,19 @@
 			<a href="./projects">Projects</a>
 			<br>
 			<br>
-			<c:forEach items="${projects}" var="proj">
-				<c:out value="${proj.id}" />
-				<i>$<c:out value="${proj.name}" /></i>
+			<form:form method="POST" modelAttribute="project">
+				<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0"
+					cellpadding="5">
+					<tr>
+						<td><form:label path="name">Project Name</form:label></td>
+						<td><form:input path="name"/></td>
+						<form:errors path="name" cssclass="error"></form:errors>
+					</tr>
+				</table>
 				<br>
-				<br>
-			</c:forEach>
+				<input type="submit" align="center" value="Execute">
+			</form:form>
 		</c:if>
-
 
 	</sec:authorize>
 

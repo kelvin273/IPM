@@ -28,8 +28,7 @@ public class JdbcProjectDao extends SimpleJdbcDaoSupport implements ProjectDao{
 
 	@Override
 	public void createProject(String username, Project project) {
-		// TODO Auto-generated method stub
-		
+		getSimpleJdbcTemplate().update("INSERT INTO projects(name, username) values(?,?)", project.getName(), username);
 	}
 	
 	private static class ProjectMapper implements ParameterizedRowMapper<Project> {
