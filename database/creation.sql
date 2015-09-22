@@ -25,3 +25,15 @@ INSERT INTO user_roles (username, role)
 VALUES ('mkyong', 'ROLE_ADMIN');
 INSERT INTO user_roles (username, role)
 VALUES ('alex', 'ROLE_USER');
+
+
+CREATE TABLE projects (
+  id INTEGER NOT NULL AUTO_INCREMENT,
+  name varchar(255),
+  username varchar(45) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_username_project FOREIGN KEY (username) REFERENCES users (username));
+  
+  INSERT INTO projects (name, username) VALUES ('P1', 'alex');
+  INSERT INTO projects (name, username) VALUES ('P2', 'alex');
+  INSERT INTO projects (name, username) VALUES ('P3', 'alex');

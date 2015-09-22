@@ -6,7 +6,7 @@ import com.ipm.web.dto.Project;
 
 public interface ProjectManager {
 
-    public List<Project> getProjects();
+    public List<Project> getProjects(String username);
     
     public void createProject(Project project);
 }
