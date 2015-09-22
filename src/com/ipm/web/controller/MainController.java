@@ -1,4 +1,4 @@
-package com.mkyong.web.controller;
+package com.ipm.web.controller;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

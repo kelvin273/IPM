@@ -3,8 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <body>
-	<h1>Title : ${title}</h1>
-	<h1>Message : ${message}</h1>
+	<h1>Projects 1</h1>
 
 	<sec:authorize access="hasRole('ROLE_USER')">
 		<!-- For login user -->
@@ -24,12 +23,20 @@
 				User : ${pageContext.request.userPrincipal.name} | <a
 					href="javascript:formSubmit()"> Logout</a>
 			</h2>
-			<a href="./newProject">New project</a>
-			<a href="./projects">Projects</a>
-			
+			New project
+			Projects
+			<br>
+			<br>
+			<c:forEach items="${projects}" var="proj">
+				<c:out value="${proj.id}" />
+				<i>$<c:out value="${proj.name}" /></i>
+				<br>
+				<br>
+			</c:forEach>
 		</c:if>
 
 
 	</sec:authorize>
+
 </body>
 </html>
