@@ -2,6 +2,7 @@
 <%@page session="true"%>
 <html>
 <body>
+<%@include file="common/header.jsp" %>
 	<h1>Title : ${title}</h1>
 	<h1>Message : ${message}</h1>
 
@@ -22,6 +23,6 @@
 				href="javascript:formSubmit()"> Logout</a>
 		</h2>
 	</c:if>
-
+<%@include file="common/footer.jsp" %>
 </body>
 </html>

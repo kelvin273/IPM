@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,7 +39,7 @@ public class ProjectController extends WebMvcConfigurerAdapter {
 	}
 
 	@RequestMapping(value = "/newProject", method = RequestMethod.POST)
-	public ModelAndView createProject(@Valid ProjectForm project, BindingResult result) {
+	public ModelAndView createProject(@Valid @ModelAttribute("project") ProjectForm project, BindingResult result) {
 		ModelAndView model = new ModelAndView();
 		if (result.hasErrors()) {
 			model.setViewName("newProject");

@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class ProjectForm implements Serializable{
 	
 	@Size(min=5, max=30)
+	@NotEmpty
 	private String name;
 
 	public String getName() {

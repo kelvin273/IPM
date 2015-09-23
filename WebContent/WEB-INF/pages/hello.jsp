@@ -3,6 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <body>
+
+<%@include file="common/header.jsp" %>
 	<h1>Hello JSP</h1>
 	<h1>Title : ${title}</h1>
 	<h1>Message : ${message}</h1>
@@ -25,12 +27,12 @@
 				User : ${pageContext.request.userPrincipal.name} | <a
 					href="javascript:formSubmit()"> Logout</a>
 			</h2>
-			<a href="./newProject">New project</a>
-			<a href="./projects">Projects</a>
+			<%@include file="common/menu.jsp" %>
 			
 		</c:if>
 
 
 	</sec:authorize>
+	<%@include file="common/footer.jsp" %>
 </body>
 </html>

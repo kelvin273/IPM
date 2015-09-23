@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <body>
+<%@include file="common/header.jsp" %>
 	<h1>Projects JSP</h1>
 
 	<sec:authorize access="hasRole('ROLE_USER')">
@@ -23,10 +24,7 @@
 				User : ${pageContext.request.userPrincipal.name} | <a
 					href="javascript:formSubmit()"> Logout</a>
 			</h2>
-			<a href="./newProject">New project</a>
-			<a href="./projects">Projects</a>
-			<br>
-			<br>
+			<%@include file="common/menu.jsp" %>
 			<c:forEach items="${projects}" var="proj">
 				<c:out value="${proj.id}" />
 				<i>$<c:out value="${proj.name}" /></i>
@@ -37,6 +35,6 @@
 
 
 	</sec:authorize>
-
+<%@include file="common/footer.jsp" %>
 </body>
 </html>

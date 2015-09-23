@@ -5,6 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <body>
+<%@include file="common/header.jsp" %>
 	<h1>New Project</h1>
 
 	<sec:authorize access="hasRole('ROLE_USER')">
@@ -25,11 +26,10 @@
 				User : ${pageContext.request.userPrincipal.name} | <a
 					href="javascript:formSubmit()"> Logout</a>
 			</h2>
-			<a href="./newProject">New project</a>
-			<a href="./projects">Projects</a>
+			<%@include file="common/menu.jsp" %>
 			<br>
 			<br>
-			<form:form method="POST" modelAttribute="project">
+			<form:form method="POST" modelAttribute="project" commandName="project">
 				<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0"
 					cellpadding="5">
 					<tr>
@@ -45,5 +45,6 @@
 
 	</sec:authorize>
 
+<%@include file="common/footer.jsp" %>
 </body>
 </html>
