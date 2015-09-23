@@ -1,13 +1,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-<!-- 	<context:component-scan base-package="com.ipm.*" /> -->
+	<!-- <context:component-scan base-package="com.ipm.*" /> -->
 	<mvc:annotation-driven />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -35,8 +34,9 @@
 
 	<bean class="com.ipm.web.controller.MainController" />
 
-	<bean id="projectDao" class="com.ipm.web.impl.JdbcProjectDao" init-method="init">
+	<bean id="projectDao" class="com.ipm.web.impl.JdbcProjectDao"
+		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 </beans>

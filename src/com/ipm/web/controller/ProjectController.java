@@ -24,13 +24,13 @@ public class ProjectController extends WebMvcConfigurerAdapter {
 
 	private ProjectManager projectManager;
 
-	@RequestMapping(value = "/projects", method = RequestMethod.GET)
+	@RequestMapping(value = "/projects/projects", method = RequestMethod.GET)
 	public ModelAndView projectsPage() {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
-			model.setViewName("projects");
+			model.setViewName("projects/projects");
 			model.addObject("projects", projectManager.getProjects(username));
 		}
 
@@ -38,11 +38,11 @@ public class ProjectController extends WebMvcConfigurerAdapter {
 
 	}
 
-	@RequestMapping(value = "/newProject", method = RequestMethod.POST)
+	@RequestMapping(value = "/projects/newProject", method = RequestMethod.POST)
 	public ModelAndView createProject(@Valid @ModelAttribute("project") ProjectForm project, BindingResult result) {
 		ModelAndView model = new ModelAndView();
 		if (result.hasErrors()) {
-			model.setViewName("newProject");
+			model.setViewName("projects/newProject");
 			return model;
         }
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -51,18 +51,18 @@ public class ProjectController extends WebMvcConfigurerAdapter {
 			Project p = new Project();
 			p.setName(project.getName());
 			projectManager.createProject(username, p);
-			model.setViewName("projects");
+			model.setViewName("projects/projects");
 			model.addObject("projects", projectManager.getProjects(username));
 		}
 		return model;
 	}
 
-	@RequestMapping(value = "/newProject", method = RequestMethod.GET)
+	@RequestMapping(value = "/projects/newProject", method = RequestMethod.GET)
     public ModelAndView newProject(ModelMap model) {
 		ModelAndView modelAux = new ModelAndView();
         ProjectForm project = new ProjectForm();
         model.addAttribute("project", project);
-        modelAux.setViewName("newProject");
+        modelAux.setViewName("projects/newProject");
         return modelAux;
     }
  
