@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <body>
 	<%@include file="../common/header.jsp"%>
@@ -6,15 +7,18 @@
 
 	<%@include file="../common/menu.jsp"%>
 
-<a href="/IPM/projects/newProject">New project</a>
-<a href="/IPM/projects/projects">Projects</a>
+	<a href="/IPM/projects/newProject">New project</a>
+	<a href="/IPM/projects/projects">Projects</a>
 
-<br/>
+	<br />
 	<c:forEach items="${projects}" var="proj">
-		<c:out value="${proj.id}" />
-		<i><a href="/IPM/skills/skills?projectId=<c:out value="${proj.id}" />"><c:out value="${proj.name}" /></a></i>
-		<br/>
-		<br/>
+
+		<br />
+		<form:form method="POST" action="/IPM/skills/skills">
+			<input id="projectId" name="projectId" type="hidden"
+				value="<c:out value="${proj.id}"/>" />
+			<input type="submit" value="${proj.name}" />
+		</form:form>
 	</c:forEach>
 
 	<%@include file="../common/footer.jsp"%>

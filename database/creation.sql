@@ -46,5 +46,5 @@ CREATE TABLE projects (
   CONSTRAINT fk_id_projectId FOREIGN KEY (projectId) REFERENCES projects (id));
   
   INSERT INTO skills (name, projectId) VALUES ('S1', 1);
-  INSERT INTO skills (name, username) VALUES ('S2', 1);
-  INSERT INTO skills (name, username) VALUES ('S3', 1);
+  INSERT INTO skills (name, projectId) VALUES ('S2', 1);
+  INSERT INTO skills (name, projectId) VALUES ('S3', 1);

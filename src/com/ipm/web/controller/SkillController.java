@@ -1,5 +1,6 @@
 package com.ipm.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -25,23 +26,22 @@ public class SkillController extends WebMvcConfigurerAdapter {
 
 	private SkillManager skillManager;
 
-	@RequestMapping(value = "/skills/skills", method = RequestMethod.GET)
-	public ModelAndView skillsPage(@RequestParam("projectId") String projectId) {
+	@RequestMapping(value = "/skills/skills", method = RequestMethod.POST)
+	public ModelAndView skillsPage(HttpServletRequest request, @RequestParam("projectId") String projectId) {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
 			model.setViewName("skills/skills");
-			//TODO set project id
 			model.addObject("skills", skillManager.getSkills(username,Integer.valueOf(projectId)));
 		}
-
+		request.getSession().setAttribute("projectId", projectId);
 		return model;
 
 	}
 
 	@RequestMapping(value = "/skills/newSkill", method = RequestMethod.POST)
-	public ModelAndView createSkill(@Valid @ModelAttribute("skill") SkillForm skill, BindingResult result) {
+	public ModelAndView createSkill(HttpServletRequest request, @Valid @ModelAttribute("skill") SkillForm skill, BindingResult result) {
 		ModelAndView model = new ModelAndView();
 		if (result.hasErrors()) {
 			model.setViewName("skills/newSkill");
@@ -53,10 +53,10 @@ public class SkillController extends WebMvcConfigurerAdapter {
 			Skill s = new Skill();
 			s.setName(skill.getName());
 			s.setUsername(username);
-			s.setProjectId(1);
+			s.setProjectId(Integer.valueOf((String) request.getSession().getAttribute("projectId")));
 			skillManager.createSkill(s);
 			model.setViewName("skills/skills");
-			model.addObject("skills", skillManager.getSkills(username,1));
+			model.addObject("skills", skillManager.getSkills(username,Integer.valueOf((String) request.getSession().getAttribute("projectId"))));
 		}
 		return model;
 	}

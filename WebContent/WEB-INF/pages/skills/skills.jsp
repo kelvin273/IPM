@@ -13,7 +13,6 @@
 		<br>
 		<br>
 	</c:forEach>
-
 	<%@include file="../common/footer.jsp"%>
 </body>
 </html>
