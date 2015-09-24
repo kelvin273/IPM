@@ -12,64 +12,67 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.ipm.web.dto.Project;
-import com.ipm.web.form.ProjectForm;
-import com.ipm.web.interfaces.ProjectManager;
+import com.ipm.web.dto.Skill;
+import com.ipm.web.form.SkillForm;
+import com.ipm.web.interfaces.SkillManager;
 
 @Controller
-public class ProjectController extends WebMvcConfigurerAdapter {
+public class SkillController extends WebMvcConfigurerAdapter {
 
-	private ProjectManager projectManager;
+	private SkillManager skillManager;
 
-	@RequestMapping(value = "/projects/projects", method = RequestMethod.GET)
-	public ModelAndView projectsPage() {
+	@RequestMapping(value = "/skills/skills", method = RequestMethod.GET)
+	public ModelAndView skillsPage(@RequestParam("projectId") String projectId) {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
-			model.setViewName("projects/projects");
-			model.addObject("projects", projectManager.getProjects(username));
+			model.setViewName("skills/skills");
+			//TODO set project id
+			model.addObject("skills", skillManager.getSkills(username,Integer.valueOf(projectId)));
 		}
 
 		return model;
 
 	}
 
-	@RequestMapping(value = "/projects/newProject", method = RequestMethod.POST)
-	public ModelAndView createProject(@Valid @ModelAttribute("project") ProjectForm project, BindingResult result) {
+	@RequestMapping(value = "/skills/newSkill", method = RequestMethod.POST)
+	public ModelAndView createSkill(@Valid @ModelAttribute("skill") SkillForm skill, BindingResult result) {
 		ModelAndView model = new ModelAndView();
 		if (result.hasErrors()) {
-			model.setViewName("projects/newProject");
+			model.setViewName("skills/newSkill");
 			return model;
         }
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
-			Project p = new Project();
-			p.setName(project.getName());
-			p.setUsername(username);
-			projectManager.createProject(p);
-			model.setViewName("projects/projects");
-			model.addObject("projects", projectManager.getProjects(username));
+			Skill s = new Skill();
+			s.setName(skill.getName());
+			s.setUsername(username);
+			s.setProjectId(1);
+			skillManager.createSkill(s);
+			model.setViewName("skills/skills");
+			model.addObject("skills", skillManager.getSkills(username,1));
 		}
 		return model;
 	}
 
-	@RequestMapping(value = "/projects/newProject", method = RequestMethod.GET)
-    public ModelAndView newProject(ModelMap model) {
+	@RequestMapping(value = "/skills/newSkill", method = RequestMethod.GET)
+    public ModelAndView newSkill(ModelMap model) {
 		ModelAndView modelAux = new ModelAndView();
-        ProjectForm project = new ProjectForm();
-        model.addAttribute("project", project);
-        modelAux.setViewName("projects/newProject");
+        SkillForm skill = new SkillForm();
+        model.addAttribute("skill", skill);
+        modelAux.setViewName("skills/newSkill");
         return modelAux;
     }
  
 
-	public void setProjectManager(ProjectManager projectManager) {
-		this.projectManager = projectManager;
+	public void setSkillManager(SkillManager skillManager) {
+		this.skillManager = skillManager;
 	}
 
 }

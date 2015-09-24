@@ -23,8 +23,7 @@
 	</c:if>
 
 </sec:authorize>
-<a href="/IPM/projects/newProject">New project</a>
-<a href="/IPM/projects/projects">Projects</a>
+
 
 
 

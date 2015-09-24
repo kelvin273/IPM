@@ -8,5 +8,5 @@ public interface ProjectManager {
 
     public List<Project> getProjects(String username);
     
-    public void createProject(String username, Project project);
+    public void createProject(Project project);
 }

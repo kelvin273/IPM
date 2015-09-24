@@ -7,6 +7,10 @@
 	<h1>Message : ${message}</h1>
 	<a href="/IPM/login">LOGIN</a>
 	<%@include file="common/menu.jsp" %>
+	
+	<a href="/IPM/projects/newProject">New project</a>
+	<a href="/IPM/projects/projects">Projects</a>
+
 	<%@include file="common/footer.jsp" %>
 </body>
 </html>

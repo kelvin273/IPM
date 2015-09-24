@@ -21,8 +21,8 @@ public class ProjectManagerImpl implements ProjectManager {
 	}
 
 	@Override
-	public void createProject(String username, Project project) {
-		projectDao.createProject(username, project);
+	public void createProject(Project project) {
+		projectDao.createProject(project);
 
 	}
 

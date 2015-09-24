@@ -1,5 +1,4 @@
 package com.ipm.web.impl;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -38,9 +37,9 @@ public class JdbcProjectDao implements ProjectDao {
 	}
 
 	@Override
-	public void createProject(String username, Project project) {
+	public void createProject(Project project) {
 		jdbcTemplate.update("INSERT INTO projects(name, username) values(?,?)",
-				project.getName(), username);
+				project.getName(), project.getUsername());
 	}
 
 	private static class ProjectMapper implements RowMapper<Project> {

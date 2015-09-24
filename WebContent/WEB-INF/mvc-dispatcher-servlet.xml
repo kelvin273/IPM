@@ -27,14 +27,27 @@
 	<bean id="ProjectManagerImpl" class="com.ipm.web.impl.ProjectManagerImpl">
 		<property name="projectDao" ref="projectDao" />
 	</bean>
+	
+	<bean id="SkillManagerImpl" class="com.ipm.web.impl.SkillManagerImpl">
+		<property name="skillDao" ref="skillDao" />
+	</bean>
 
 	<bean class="com.ipm.web.controller.ProjectController">
 		<property name="projectManager" ref="ProjectManagerImpl" />
+	</bean>
+	
+	<bean class="com.ipm.web.controller.SkillController">
+		<property name="skillManager" ref="SkillManagerImpl" />
 	</bean>
 
 	<bean class="com.ipm.web.controller.MainController" />
 
 	<bean id="projectDao" class="com.ipm.web.impl.JdbcProjectDao"
+		init-method="init">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="skillDao" class="com.ipm.web.impl.JdbcSkillDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>

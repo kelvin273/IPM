@@ -1,4 +1,4 @@
-CREATE  TABLE users (
+CREATE TABLE users (
   username VARCHAR(45) NOT NULL ,
   password VARCHAR(45) NOT NULL ,
   enabled TINYINT NOT NULL DEFAULT 1 ,
@@ -37,3 +37,14 @@ CREATE TABLE projects (
   INSERT INTO projects (name, username) VALUES ('P1', 'alex');
   INSERT INTO projects (name, username) VALUES ('P2', 'alex');
   INSERT INTO projects (name, username) VALUES ('P3', 'alex');
+  
+  CREATE TABLE skills (
+  id INTEGER NOT NULL AUTO_INCREMENT,
+  name varchar(255),
+  projectId INTEGER,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_id_projectId FOREIGN KEY (projectId) REFERENCES projects (id));
+  
+  INSERT INTO skills (name, projectId) VALUES ('S1', 1);
+  INSERT INTO skills (name, username) VALUES ('S2', 1);
+  INSERT INTO skills (name, username) VALUES ('S3', 1);
