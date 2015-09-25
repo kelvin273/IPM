@@ -23,7 +23,22 @@
 		<property name="basename" value="messages" />
 	</bean>
 
-	<!-- the application context definition for the springapp DispatcherServlet -->
+	<!-- Controllers -->
+	<bean class="com.ipm.web.controller.ProjectController">
+		<property name="projectManager" ref="ProjectManagerImpl" />
+	</bean>
+	
+	<bean class="com.ipm.web.controller.SkillController">
+		<property name="skillManager" ref="SkillManagerImpl" />
+	</bean>
+	
+	<bean class="com.ipm.web.controller.ResourceController">
+		<property name="resourceManager" ref="ResourceManagerImpl" />
+	</bean>
+
+	<bean class="com.ipm.web.controller.MainController" />
+
+	<!-- Managers -->
 	<bean id="ProjectManagerImpl" class="com.ipm.web.impl.ProjectManagerImpl">
 		<property name="projectDao" ref="projectDao" />
 	</bean>
@@ -32,22 +47,22 @@
 		<property name="skillDao" ref="skillDao" />
 	</bean>
 
-	<bean class="com.ipm.web.controller.ProjectController">
-		<property name="projectManager" ref="ProjectManagerImpl" />
+	<bean id="ResourceManagerImpl" class="com.ipm.web.impl.ResourceManagerImpl">
+		<property name="resourceDao" ref="resourceDao" />
 	</bean>
 	
-	<bean class="com.ipm.web.controller.SkillController">
-		<property name="skillManager" ref="SkillManagerImpl" />
-	</bean>
-
-	<bean class="com.ipm.web.controller.MainController" />
-
+	<!-- DAOs -->
 	<bean id="projectDao" class="com.ipm.web.impl.JdbcProjectDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
 	<bean id="skillDao" class="com.ipm.web.impl.JdbcSkillDao"
+		init-method="init">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="resourceDao" class="com.ipm.web.impl.JdbcResourceDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>

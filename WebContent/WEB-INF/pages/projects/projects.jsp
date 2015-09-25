@@ -14,11 +14,19 @@
 	<c:forEach items="${projects}" var="proj">
 
 		<br />
+		<c:out value="${proj.id}"/> <c:out value="${proj.name}"/>
 		<form:form method="POST" action="/IPM/skills/skills">
 			<input id="projectId" name="projectId" type="hidden"
 				value="<c:out value="${proj.id}"/>" />
-			<input type="submit" value="${proj.name}" />
+			<input type="submit" value="skills" />
 		</form:form>
+		
+		<form:form method="POST" action="/IPM/resources/resources">
+			<input id="projectId" name="projectId" type="hidden"
+				value="<c:out value="${proj.id}"/>" />
+			<input type="submit" value="resources" />
+		</form:form>
+		
 	</c:forEach>
 
 	<%@include file="../common/footer.jsp"%>

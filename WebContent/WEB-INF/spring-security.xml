@@ -12,6 +12,7 @@
 		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/projects/*" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/skills/*" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/resources/*" access="hasRole('ROLE_USER')" />
 		<!-- access denied page -->
 		<access-denied-handler error-page="/403" />
 		
