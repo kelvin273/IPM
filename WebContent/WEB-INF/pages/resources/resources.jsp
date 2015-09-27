@@ -1,18 +1,42 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<body>
-	<%@include file="../common/header.jsp"%>
-	<h1>Resources</h1>
+
+<%@include file="../common/header.jsp"%>
+<div class="container">
+	<ul class="breadcrumb">
+		<li><a href="<c:url value="/"/>">Home</a></li>
+		<li><a href="<c:url value="/projects/projects"/>">Projects</a></li>
+		<li class="active">Resources</li>
+	</ul>
 
 	<%@include file="../common/menu.jsp"%>
-	<a href="/IPM/resources/newResource">New Resource</a>
-<br/>
-	<c:forEach items="${resources}" var="r">
-		<c:out value="${r.id}" />
-		<i>$<c:out value="${r.name}" /> <c:out value="${r.projectId}" /></i>
-		<br>
-		<br>
-	</c:forEach>
-	<%@include file="../common/footer.jsp"%>
-</body>
-</html>
+	TODO display the project in which we are...
+	<h1>Resources</h1>
+
+	<a href="/IPM/resources/newResource">New Resource</a> <br />
+
+	<div class="bs-component">
+		<table class="table table-striped table-hover ">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Resource Name</th>
+					<th>Go to</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					Integer i = 0;
+				%>
+				<c:forEach items="${resources}" var="r">
+					<%
+						i++;
+					%>
+					<tr>
+						<td><c:out value="<%=i%>" /></td>
+						<td><c:out value="${r.name}" /></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+</div>
+<%@include file="../common/footer.jsp"%>

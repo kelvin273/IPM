@@ -1,16 +1,14 @@
-<html>
-<body>
+<%@include file="common/header.jsp"%>
+<%@include file="common/menu.jsp"%>
 
-<%@include file="common/header.jsp" %>
-	<h1>Hello JSP</h1>
-	<h1>Title : ${title}</h1>
-	<h1>Message : ${message}</h1>
-	<a href="/IPM/login">LOGIN</a>
-	<%@include file="common/menu.jsp" %>
-	
-	<a href="/IPM/projects/newProject">New project</a>
-	<a href="/IPM/projects/projects">Projects</a>
+<div class="container">
+	<ul class="breadcrumb">
+		<li class="active">Home</li>
+	</ul>
 
-	<%@include file="common/footer.jsp" %>
-</body>
-</html>
+	<a href="/IPM/projects/newProject">New project</a> <a
+		href="/IPM/projects/projects">Projects</a>
+
+</div>
+<%@include file="common/footer.jsp"%>
+

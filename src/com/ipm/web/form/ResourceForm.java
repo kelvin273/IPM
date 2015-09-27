@@ -13,23 +13,23 @@ import com.ipm.web.dto.Skill;
 
 public class ResourceForm implements Serializable {
 
-	@NotEmpty
-	@NotNull @Min(1)
-	private double salary;
-	@NotEmpty
-	@NotNull @Min(1)
+	@NotNull
+	@Min(value = 1)
+	private float salary;
+	@NotNull
+	@Min(value = 1)
 	private float maxDedication;
 	@Size(min = 5, max = 30)
 	@NotEmpty
 	private String name;
-	
-	private List<Skill> skills;
 
-	public double getSalary() {
+	private String[] skills;
+
+	public float getSalary() {
 		return salary;
 	}
 
-	public void setSalary(double salary) {
+	public void setSalary(float salary) {
 		this.salary = salary;
 	}
 
@@ -41,11 +41,11 @@ public class ResourceForm implements Serializable {
 		this.maxDedication = maxDedication;
 	}
 
-	public List<Skill> getSkills() {
+	public String[] getSkills() {
 		return skills;
 	}
 
-	public void setSkills(List<Skill> skills) {
+	public void setSkills(String[] skills) {
 		this.skills = skills;
 	}
 

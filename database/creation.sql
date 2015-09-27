@@ -56,5 +56,11 @@ INSERT INTO resources (name, salary,maxDedication,projectId) VALUES ('R1', 10,1,
 INSERT INTO resources (name, salary,maxDedication,projectId) VALUES ('R2', 10,1,1);
 INSERT INTO resources (name, salary,maxDedication,projectId) VALUES ('R3', 10,1,1);
   
-  
+CREATE TABLE skillResources (
+  resourceId INTEGER NOT NULL,
+  skillId INTEGER NOT NULL,
+  PRIMARY KEY (resourceId, skillId),
+  CONSTRAINT fk_skillResources_resources FOREIGN KEY (resourceId) REFERENCES resources (id),
+  CONSTRAINT fk_skillResources_skill FOREIGN KEY (skillId) REFERENCES skills (id)
+  ); 
   

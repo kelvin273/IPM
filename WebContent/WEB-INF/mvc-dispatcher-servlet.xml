@@ -6,8 +6,6 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<!-- <context:component-scan base-package="com.ipm.*" /> -->
-	<mvc:annotation-driven />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -18,6 +16,12 @@
 		</property>
 	</bean>
 
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/fonts/**" location="/fonts/" />
+
+	<mvc:annotation-driven />
+
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="messages" />
@@ -27,13 +31,14 @@
 	<bean class="com.ipm.web.controller.ProjectController">
 		<property name="projectManager" ref="ProjectManagerImpl" />
 	</bean>
-	
+
 	<bean class="com.ipm.web.controller.SkillController">
 		<property name="skillManager" ref="SkillManagerImpl" />
 	</bean>
-	
+
 	<bean class="com.ipm.web.controller.ResourceController">
 		<property name="resourceManager" ref="ResourceManagerImpl" />
+		<property name="skillManager" ref="SkillManagerImpl" />
 	</bean>
 
 	<bean class="com.ipm.web.controller.MainController" />
@@ -42,7 +47,7 @@
 	<bean id="ProjectManagerImpl" class="com.ipm.web.impl.ProjectManagerImpl">
 		<property name="projectDao" ref="projectDao" />
 	</bean>
-	
+
 	<bean id="SkillManagerImpl" class="com.ipm.web.impl.SkillManagerImpl">
 		<property name="skillDao" ref="skillDao" />
 	</bean>
@@ -50,18 +55,18 @@
 	<bean id="ResourceManagerImpl" class="com.ipm.web.impl.ResourceManagerImpl">
 		<property name="resourceDao" ref="resourceDao" />
 	</bean>
-	
+
 	<!-- DAOs -->
 	<bean id="projectDao" class="com.ipm.web.impl.JdbcProjectDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 	<bean id="skillDao" class="com.ipm.web.impl.JdbcSkillDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 	<bean id="resourceDao" class="com.ipm.web.impl.JdbcResourceDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />

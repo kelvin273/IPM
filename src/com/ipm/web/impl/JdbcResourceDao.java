@@ -1,7 +1,10 @@
 package com.ipm.web.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -9,9 +12,13 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import com.ipm.web.dto.Resource;
+import com.ipm.web.dto.Skill;
 import com.ipm.web.interfaces.ResourceDao;
 
 public class JdbcResourceDao implements ResourceDao {
@@ -32,16 +39,36 @@ public class JdbcResourceDao implements ResourceDao {
 
 	@Override
 	public List<Resource> getResources(String username, int projectId) {
-		List<Resource> resources = jdbcTemplate
-				.query("select r.id, r.name, r.projectId, r.salary, u.username, r.maxDedication from resources r, projects p, users u where r.projectId = ? and r.projectID=p.id and u.username = p.username and u.username = ?",
-						new ResourceMapper(), projectId, username);
+		List<Resource> resources = jdbcTemplate.query(
+				"select r.id, r.name, r.projectId, r.salary, u.username, r.maxDedication from resources r, projects p, users u where r.projectId = ? and r.projectID=p.id and u.username = p.username and u.username = ?",
+				new ResourceMapper(), projectId, username);
 		return resources;
 	}
 
 	@Override
 	public void createResource(Resource resource) {
-		jdbcTemplate.update("INSERT INTO resources(name, salary, maxDedication,projectId) values(?,?,?,?)",
-				resource.getName(), resource.getProjectId());
+		KeyHolder holder = new GeneratedKeyHolder();
+
+		jdbcTemplate.update(new PreparedStatementCreator() {
+
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement("INSERT INTO resources(name, salary, maxDedication,projectId) values(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, resource.getName());
+				ps.setDouble(2, resource.getSalary());
+				ps.setFloat(3, resource.getMaxDedication());
+				ps.setLong(4, resource.getProjectId());
+				return ps;
+			}
+		}, holder);
+
+		Long resourceId = holder.getKey().longValue();
+
+		for (Skill skill : resource.getSkills()) {
+			jdbcTemplate.update("INSERT INTO skillResources(resourceId, skillId) values(?,?)", resourceId,
+					skill.getId());
+		}
+
 	}
 
 	private static class ResourceMapper implements RowMapper<Resource> {

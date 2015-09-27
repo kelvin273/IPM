@@ -1,78 +1,46 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file="./common/header.jsp"%>
 <%@page session="true"%>
-<html>
-<head>
 
-<style>
-.error {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #a94442;
-	background-color: #f2dede;
-	border-color: #ebccd1;
-}
-
-.msg {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #31708f;
-	background-color: #d9edf7;
-	border-color: #bce8f1;
-}
-
-#login-box {
-	width: 300px;
-	padding: 20px;
-	margin: 100px auto;
-	background: #fff;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border: 1px solid #000;
-}
-</style>
-</head>
 <body onload='document.loginForm.username.focus();'>
 
-	<h1>Login</h1>
-
-	<div id="login-box">
-
-		<h2>Login with Username and Password</h2>
-
-		<c:if test="${not empty error}">
-			<div class="error">${error}</div>
-		</c:if>
-		<c:if test="${not empty msg}">
-			<div class="msg">${msg}</div>
-		</c:if>
-
+	<div class="col-lg-6">
 		<form name='loginForm'
-		  action="<c:url value='/j_spring_security_check' />" method='POST'>
+			action="<c:url value='/j_spring_security_check' />" method='POST'
+			class="form-horizontal">
 
-		<table>
-			<tr>
-				<td>User:</td>
-				<td><input type='text' name='username'></td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td><input type='password' name='password' /></td>
-			</tr>
-			<tr>
-				<td colspan='2'><input name="submit" type="submit"
-				  value="submit" /></td>
-			</tr>
-		  </table>
+			<fieldset>
+				<legend>Login</legend>
+				<c:if test="${not empty error}">
+					<div class="error"></div>
+					<div class="alert alert-dismissible alert-danger">
+						<strong>${error}</strong>
+					</div>
+					<br />
+				</c:if>
+				<c:if test="${not empty msg}">
+					<div class="msg">${msg}</div>
+					<br />
+				</c:if>
+				<div class="form-group">
+					<label for="username" class="col-lg-2 control-label">Username</label>
+					<div class="col-lg-10">
+						<input class="form-control" id="username" name="username"
+							placeholder="Username" type="text" value="alex">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="username" class="col-lg-2 control-label">Password</label>
+					<div class="col-lg-10">
+						<input class="form-control" id="password" name="password"
+							placeholder="Password" type="password" value="123456">
+					</div>
+				</div>
+			</fieldset>
+			<button type="submit" class="btn btn-primary">Login</button>
 
-		  <input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 		</form>
 	</div>
 
-</body>
-</html>
+	<%@include file="./common/footer.jsp"%>

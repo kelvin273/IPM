@@ -27,26 +27,41 @@ public class SkillController extends WebMvcConfigurerAdapter {
 	private SkillManager skillManager;
 
 	@RequestMapping(value = "/skills/skills", method = RequestMethod.POST)
-	public ModelAndView skillsPage(HttpServletRequest request, @RequestParam("projectId") String projectId) {
+	public ModelAndView skillsPagePOST(HttpServletRequest request, @RequestParam("projectId") String projectId) {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
 			model.setViewName("skills/skills");
-			model.addObject("skills", skillManager.getSkills(username,Integer.valueOf(projectId)));
+			model.addObject("skills", skillManager.getSkills(username, Integer.valueOf(projectId)));
 		}
 		request.getSession().setAttribute("projectId", projectId);
 		return model;
 
 	}
 
+	@RequestMapping(value = "/skills/skills", method = RequestMethod.GET)
+	public ModelAndView skillsPageGET(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			String username = ((UserDetails) auth.getPrincipal()).getUsername();
+			model.setViewName("skills/skills");
+			String finalProjectId = (String) request.getSession().getAttribute("projectId");
+			model.addObject("skills", skillManager.getSkills(username, Integer.valueOf(finalProjectId)));
+		}
+		return model;
+
+	}
+
 	@RequestMapping(value = "/skills/newSkill", method = RequestMethod.POST)
-	public ModelAndView createSkill(HttpServletRequest request, @Valid @ModelAttribute("skill") SkillForm skill, BindingResult result) {
+	public ModelAndView createSkill(HttpServletRequest request, @Valid @ModelAttribute("skill") SkillForm skill,
+			BindingResult result) {
 		ModelAndView model = new ModelAndView();
 		if (result.hasErrors()) {
 			model.setViewName("skills/newSkill");
 			return model;
-        }
+		}
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
@@ -56,20 +71,20 @@ public class SkillController extends WebMvcConfigurerAdapter {
 			s.setProjectId(Integer.valueOf((String) request.getSession().getAttribute("projectId")));
 			skillManager.createSkill(s);
 			model.setViewName("skills/skills");
-			model.addObject("skills", skillManager.getSkills(username,Integer.valueOf((String) request.getSession().getAttribute("projectId"))));
+			model.addObject("skills", skillManager.getSkills(username,
+					Integer.valueOf((String) request.getSession().getAttribute("projectId"))));
 		}
 		return model;
 	}
 
 	@RequestMapping(value = "/skills/newSkill", method = RequestMethod.GET)
-    public ModelAndView newSkill(ModelMap model) {
+	public ModelAndView newSkill(ModelMap model) {
 		ModelAndView modelAux = new ModelAndView();
-        SkillForm skill = new SkillForm();
-        model.addAttribute("skill", skill);
-        modelAux.setViewName("skills/newSkill");
-        return modelAux;
-    }
- 
+		SkillForm skill = new SkillForm();
+		model.addAttribute("skill", skill);
+		modelAux.setViewName("skills/newSkill");
+		return modelAux;
+	}
 
 	public void setSkillManager(SkillManager skillManager) {
 		this.skillManager = skillManager;
