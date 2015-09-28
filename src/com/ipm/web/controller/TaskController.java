@@ -17,23 +17,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.ipm.web.dto.Skill;
-import com.ipm.web.form.SkillForm;
-import com.ipm.web.interfaces.SkillManager;
+import com.ipm.web.dto.Task;
+import com.ipm.web.form.TaskForm;
+import com.ipm.web.interfaces.TaskManager;
 
 @Controller
-public class SkillController extends WebMvcConfigurerAdapter {
+public class TaskController extends WebMvcConfigurerAdapter {
 
-	private SkillManager skillManager;
+	private TaskManager taskManager;
 
-	@RequestMapping(value = "/skills/skills", method = RequestMethod.POST)
-	public ModelAndView skillsPagePOST(HttpServletRequest request, @RequestParam("projectId") String projectId, @RequestParam("projectName") String projectName) {
+	@RequestMapping(value = "/tasks/tasks", method = RequestMethod.POST)
+	public ModelAndView tasksPagePOST(HttpServletRequest request, @RequestParam("projectId") String projectId, @RequestParam("projectName") String projectName) {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
-			model.setViewName("skills/skills");
-			model.addObject("skills", skillManager.getSkills(username, Integer.valueOf(projectId)));
+			model.setViewName("tasks/tasks");
+			model.addObject("tasks", taskManager.getTasks(username, Integer.valueOf(projectId)));
 		}
 		request.getSession().setAttribute("projectId", projectId);
 		request.getSession().setAttribute("projectName", projectName);
@@ -41,54 +41,54 @@ public class SkillController extends WebMvcConfigurerAdapter {
 
 	}
 
-	@RequestMapping(value = "/skills/skills", method = RequestMethod.GET)
-	public ModelAndView skillsPageGET(HttpServletRequest request) {
+	@RequestMapping(value = "/tasks/tasks", method = RequestMethod.GET)
+	public ModelAndView tasksPageGET(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
-			model.setViewName("skills/skills");
+			model.setViewName("tasks/tasks");
 			String finalProjectId = (String) request.getSession().getAttribute("projectId");
-			model.addObject("skills", skillManager.getSkills(username, Integer.valueOf(finalProjectId)));
+			model.addObject("tasks", taskManager.getTasks(username, Integer.valueOf(finalProjectId)));
 		}
 		return model;
 
 	}
 
-	@RequestMapping(value = "/skills/newSkill", method = RequestMethod.POST)
-	public ModelAndView createSkill(HttpServletRequest request, @Valid @ModelAttribute("skill") SkillForm skill,
+	@RequestMapping(value = "/tasks/newTask", method = RequestMethod.POST)
+	public ModelAndView createTask(HttpServletRequest request, @Valid @ModelAttribute("task") TaskForm task,
 			BindingResult result) {
 		ModelAndView model = new ModelAndView();
 		if (result.hasErrors()) {
-			model.setViewName("skills/newSkill");
+			model.setViewName("tasks/newTask");
 			return model;
 		}
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
-			Skill s = new Skill();
-			s.setName(skill.getName());
+			Task s = new Task();
+			s.setName(task.getName());
 			s.setUsername(username);
 			s.setProjectId(Integer.valueOf((String) request.getSession().getAttribute("projectId")));
-			skillManager.createSkill(s);
-			model.setViewName("skills/skills");
-			model.addObject("skills", skillManager.getSkills(username,
+			taskManager.createTask(s);
+			model.setViewName("tasks/tasks");
+			model.addObject("tasks", taskManager.getTasks(username,
 					Integer.valueOf((String) request.getSession().getAttribute("projectId"))));
 		}
 		return model;
 	}
 
-	@RequestMapping(value = "/skills/newSkill", method = RequestMethod.GET)
-	public ModelAndView newSkill(ModelMap model) {
+	@RequestMapping(value = "/tasks/newTask", method = RequestMethod.GET)
+	public ModelAndView newTask(ModelMap model) {
 		ModelAndView modelAux = new ModelAndView();
-		SkillForm skill = new SkillForm();
-		model.addAttribute("skill", skill);
-		modelAux.setViewName("skills/newSkill");
+		TaskForm task = new TaskForm();
+		model.addAttribute("task", task);
+		modelAux.setViewName("tasks/newTask");
 		return modelAux;
 	}
 
-	public void setSkillManager(SkillManager skillManager) {
-		this.skillManager = skillManager;
+	public void setTaskManager(TaskManager taskManager) {
+		this.taskManager = taskManager;
 	}
 
 }

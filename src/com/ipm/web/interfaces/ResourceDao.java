@@ -8,5 +8,5 @@ public interface ResourceDao {
 
 	public List<Resource> getResources(String username, int projectId);
 
-	public void createResource(Resource skill);
+	public void createResource(Resource resource);
 }

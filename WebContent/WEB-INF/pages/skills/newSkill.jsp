@@ -7,6 +7,7 @@
 		<li><a href="<c:url value="/skills/skills"/>">Skills</a></li>
 		<li class="active">New Skills</li>
 	</ul>
+	<h1>${projectName} </h1>
 	<div class="form-group">
 		<form:form method="POST" modelAttribute="skill" commandName="skill"
 			class="form-horizontal">

@@ -12,7 +12,7 @@
 	<form:form method="POST" modelAttribute="resource"
 		commandName="resource" class="form-horizontal">
 		<fieldset>
-			<legend>New Resource</legend>
+			<legend>New Task</legend>
 			<c:set var="errors">
 				<form:errors path="name" cssclass="error" />
 				<form:errors path="maxDedication" cssclass="error"></form:errors>

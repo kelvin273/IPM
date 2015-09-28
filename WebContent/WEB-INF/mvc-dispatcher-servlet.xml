@@ -40,6 +40,10 @@
 		<property name="resourceManager" ref="ResourceManagerImpl" />
 		<property name="skillManager" ref="SkillManagerImpl" />
 	</bean>
+	
+	<bean class="com.ipm.web.controller.TaskController">
+		<property name="taskManager" ref="TaskManagerImpl" />
+	</bean>
 
 	<bean class="com.ipm.web.controller.MainController" />
 
@@ -55,6 +59,10 @@
 	<bean id="ResourceManagerImpl" class="com.ipm.web.impl.ResourceManagerImpl">
 		<property name="resourceDao" ref="resourceDao" />
 	</bean>
+	
+	<bean id="TaskManagerImpl" class="com.ipm.web.impl.TaskManagerImpl">
+		<property name="taskDao" ref="taskDao" />
+	</bean>
 
 	<!-- DAOs -->
 	<bean id="projectDao" class="com.ipm.web.impl.JdbcProjectDao"
@@ -68,6 +76,11 @@
 	</bean>
 
 	<bean id="resourceDao" class="com.ipm.web.impl.JdbcResourceDao"
+		init-method="init">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="taskDao" class="com.ipm.web.impl.JdbcTaskDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>

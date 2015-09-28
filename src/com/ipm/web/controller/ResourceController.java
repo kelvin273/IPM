@@ -34,7 +34,7 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 	private SkillManager skillManager;
 
 	@RequestMapping(value = "/resources/resources", method = RequestMethod.POST)
-	public ModelAndView resourcesPagePOST(HttpServletRequest request, @RequestParam("projectId") String projectId) {
+	public ModelAndView resourcesPagePOST(HttpServletRequest request, @RequestParam("projectId") String projectId, @RequestParam("projectName") String projectName) {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
@@ -43,6 +43,7 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 			model.addObject("resources", resourceManager.getResources(username, Integer.valueOf(projectId)));
 		}
 		request.getSession().setAttribute("projectId", projectId);
+		request.getSession().setAttribute("projectName", projectName);
 		return model;
 
 	}

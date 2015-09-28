@@ -4,20 +4,21 @@
 	<ul class="breadcrumb">
 		<li><a href="<c:url value="/"/>">Home</a></li>
 		<li><a href="<c:url value="/projects/projects"/>">Projects</a></li>
-		<li class="active">Skills</li>
+		<li class="active">Resources</li>
 	</ul>
-	<h1>${projectName} </h1>
-	<h2>Skills</h2>
 
 	<%@include file="../common/menu.jsp"%>
-	<a href="/IPM/skills/newSkill">New Skill</a> <br />
+	<h1>${projectName} </h1>
+	<h2>Tasks</h2>
+
+	<a href="/IPM/tasks/newTask">New Task</a> <br />
 
 	<div class="bs-component">
 		<table class="table table-striped table-hover ">
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>Skill Name</th>
+					<th>Task Name</th>
 					<th>Go to</th>
 				</tr>
 			</thead>
@@ -25,13 +26,13 @@
 				<%
 					Integer i = 0;
 				%>
-				<c:forEach items="${skills}" var="s">
+				<c:forEach items="${tasks}" var="r">
 					<%
 						i++;
 					%>
 					<tr>
 						<td><c:out value="<%=i%>" /></td>
-						<td><c:out value="${s.name}" /></td>
+						<td><c:out value="${r.name}" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>

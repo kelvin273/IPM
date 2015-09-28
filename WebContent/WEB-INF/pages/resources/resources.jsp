@@ -8,8 +8,8 @@
 	</ul>
 
 	<%@include file="../common/menu.jsp"%>
-	TODO display the project in which we are...
-	<h1>Resources</h1>
+	<h1>${projectName} </h1>
+	<h2>Resources</h2>
 
 	<a href="/IPM/resources/newResource">New Resource</a> <br />
 

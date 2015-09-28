@@ -39,6 +39,8 @@
 										style="height:4px">
 										<input id="projectId" name="projectId" type="hidden"
 											value="<c:out value="${proj.id}"/>" />
+										<input id="projectName" name="projectName" type="hidden"
+											value="<c:out value="${proj.name}"/>" />
 										<input type="submit" value="skills"
 											class="btn btn-success btn-xs" />
 									</form:form>
@@ -49,8 +51,22 @@
 										style="height:4px">
 										<input id="projectId" name="projectId" type="hidden"
 											value="<c:out value="${proj.id}"/>" />
+										<input id="projectName" name="projectName" type="hidden"
+											value="<c:out value="${proj.name}"/>" />
 										<input type="submit" value="resources"
 											class="btn btn-info btn-xs" />
+									</form:form>
+								</div>
+								<div style="float: left">&nbsp;</div>
+								<div style="float: left">
+									<form:form method="POST" action="/IPM/tasks/tasks"
+										style="height:4px">
+										<input id="projectId" name="projectId" type="hidden"
+											value="<c:out value="${proj.id}"/>" />
+										<input id="projectName" name="projectName" type="hidden"
+											value="<c:out value="${proj.name}"/>" />
+										<input type="submit" value="tasks"
+											class="btn btn-warning btn-xs" />
 									</form:form>
 								</div>
 							</div>
