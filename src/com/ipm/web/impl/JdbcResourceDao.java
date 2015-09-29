@@ -46,7 +46,7 @@ public class JdbcResourceDao implements ResourceDao {
 	}
 
 	@Override
-	public void createResource(Resource resource) {
+	public void createResource(final Resource resource) {
 		KeyHolder holder = new GeneratedKeyHolder();
 
 		jdbcTemplate.update(new PreparedStatementCreator() {
@@ -69,6 +69,14 @@ public class JdbcResourceDao implements ResourceDao {
 					skill.getId());
 		}
 
+	}
+	
+	@Override
+	public void removeResource(Resource resource) {
+		jdbcTemplate
+				.update("DELETE FROM resources WHERE id=? and projectId IN (SELECT p.id from projects p, users u where u.username=p.username and p.id = ? and u.username=? )",
+						resource.getId(), resource.getProjectId(),
+						resource.getUsername());
 	}
 
 	private static class ResourceMapper implements RowMapper<Resource> {

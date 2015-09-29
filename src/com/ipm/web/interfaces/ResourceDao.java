@@ -9,4 +9,6 @@ public interface ResourceDao {
 	public List<Resource> getResources(String username, int projectId);
 
 	public void createResource(Resource resource);
+
+	public void removeResource(Resource resource);
 }

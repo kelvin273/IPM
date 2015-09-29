@@ -43,6 +43,8 @@
 	
 	<bean class="com.ipm.web.controller.TaskController">
 		<property name="taskManager" ref="TaskManagerImpl" />
+		<property name="skillManager" ref="SkillManagerImpl" />
+		<property name="resourceManager" ref="ResourceManagerImpl" />
 	</bean>
 
 	<bean class="com.ipm.web.controller.MainController" />

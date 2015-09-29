@@ -9,4 +9,6 @@ public interface TaskManager {
     public List<Task> getTasks(String username, int projectId);
     
     public void createTask(Task task);
+
+	public void removeTask(Task task);
 }

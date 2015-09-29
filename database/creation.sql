@@ -23,7 +23,7 @@ INSERT INTO user_roles (username, role) VALUES ('alex', 'ROLE_USER');
 
 CREATE TABLE projects (
   id INTEGER NOT NULL AUTO_INCREMENT,
-  name varchar(255),
+  name varchar(255) NOT NULL,
   username varchar(45) NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT fk_username_project FOREIGN KEY (username) REFERENCES users (username));
@@ -34,7 +34,7 @@ INSERT INTO projects (name, username) VALUES ('P3', 'alex');
   
 CREATE TABLE skills (
   id INTEGER NOT NULL AUTO_INCREMENT,
-  name varchar(255),
+  name varchar(255) NOT NULL,
   projectId INTEGER,
   PRIMARY KEY (id),
   CONSTRAINT fk_skillls_projectId FOREIGN KEY (projectId) REFERENCES projects (id));
@@ -45,7 +45,7 @@ INSERT INTO skills (name, projectId) VALUES ('S3', 1);
   
 CREATE TABLE resources (
   id INTEGER NOT NULL AUTO_INCREMENT,
-  name varchar(255),
+  name varchar(255) NOT NULL,
   salary FLOAT NOT NULL,
   maxDedication FLOAT, 
   projectId INTEGER,
@@ -62,5 +62,30 @@ CREATE TABLE skillResources (
   PRIMARY KEY (resourceId, skillId),
   CONSTRAINT fk_skillResources_resources FOREIGN KEY (resourceId) REFERENCES resources (id),
   CONSTRAINT fk_skillResources_skill FOREIGN KEY (skillId) REFERENCES skills (id)
+  ); 
+  
+CREATE TABLE tasks (
+  id INTEGER NOT NULL AUTO_INCREMENT,
+  name varchar(255) NOT NULL,
+  effort FLOAT, 
+  exclusive boolean,
+  projectId INTEGER,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_task_projectId FOREIGN KEY (projectId) REFERENCES projects (id));  
+  
+CREATE TABLE skillTasks (
+  skillId INTEGER NOT NULL,
+  taskId INTEGER NOT NULL,
+  PRIMARY KEY (taskId, skillId),
+  CONSTRAINT fk_skillTask_skills FOREIGN KEY (skillId) REFERENCES skills (id),
+  CONSTRAINT fk_skillTasks_task FOREIGN KEY (taskId) REFERENCES tasks (id)
+  ); 
+  
+CREATE TABLE resourceTasks (
+  resourceId INTEGER NOT NULL,
+  taskId INTEGER NOT NULL,
+  PRIMARY KEY (taskId, resourceId),
+  CONSTRAINT fk_resourceTasks_resource FOREIGN KEY (resourceId) REFERENCES resources (id),
+  CONSTRAINT fk_resourceTasks_tasks FOREIGN KEY (taskId) REFERENCES tasks (id)
   ); 
   

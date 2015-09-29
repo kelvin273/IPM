@@ -33,6 +33,13 @@
 					<tr>
 						<td><c:out value="<%=i%>" /></td>
 						<td><c:out value="${r.name}" /></td>
+						<td><form:form method="POST"
+								action="/IPM/resources/removeResource" style="height:4px">
+								<input id="resourceId" name="resourceId" type="hidden"
+									value="<c:out value="${r.id}"/>" />
+								<input type="submit" value="Remove"
+									class="btn btn-danger btn-xs" />
+							</form:form></td>
 					</tr>
 				</c:forEach>
 			</tbody>

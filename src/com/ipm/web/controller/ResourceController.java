@@ -34,13 +34,19 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 	private SkillManager skillManager;
 
 	@RequestMapping(value = "/resources/resources", method = RequestMethod.POST)
-	public ModelAndView resourcesPagePOST(HttpServletRequest request, @RequestParam("projectId") String projectId, @RequestParam("projectName") String projectName) {
+	public ModelAndView resourcesPagePOST(HttpServletRequest request,
+			@RequestParam("projectId") String projectId,
+			@RequestParam("projectName") String projectName) {
 		ModelAndView model = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
 			model.setViewName("resources/resources");
-			model.addObject("resources", resourceManager.getResources(username, Integer.valueOf(projectId)));
+			model.addObject(
+					"resources",
+					resourceManager.getResources(username,
+							Integer.valueOf(projectId)));
 		}
 		request.getSession().setAttribute("projectId", projectId);
 		request.getSession().setAttribute("projectName", projectName);
@@ -51,31 +57,43 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 	@RequestMapping(value = "/resources/resources", method = RequestMethod.GET)
 	public ModelAndView resourcesPageGET(HttpServletRequest request) {
 		ModelAndView model = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
 			model.setViewName("resources/resources");
-			String finalProjectId = (String) request.getSession().getAttribute("projectId");
-			model.addObject("resources", resourceManager.getResources(username, Integer.valueOf(finalProjectId)));	}
+			String finalProjectId = (String) request.getSession().getAttribute(
+					"projectId");
+			model.addObject(
+					"resources",
+					resourceManager.getResources(username,
+							Integer.valueOf(finalProjectId)));
+		}
 		return model;
 
 	}
 
 	@RequestMapping(value = "/resources/newResource", method = RequestMethod.POST)
 	public ModelAndView createResource(HttpServletRequest request,
-			@Valid @ModelAttribute("resource") ResourceForm resource, BindingResult result) {
+			@Valid @ModelAttribute("resource") ResourceForm resource,
+			BindingResult result) {
 		ModelAndView model = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = ((UserDetails) auth.getPrincipal()).getUsername();
+		int projectId = Integer.valueOf((String) request.getSession()
+				.getAttribute("projectId"));
+		model.addObject("skills", skillManager.getSkills(username, projectId));
 		if (result.hasErrors()) {
 			model.setViewName("resources/newResource");
 			return model;
 		}
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			String username = ((UserDetails) auth.getPrincipal()).getUsername();
 			Resource s = new Resource();
 			s.setName(resource.getName());
 			s.setUsername(username);
-			s.setProjectId(Integer.valueOf((String) request.getSession().getAttribute("projectId")));
+			s.setProjectId(Integer.valueOf((String) request.getSession()
+					.getAttribute("projectId")));
 
 			List<Skill> skillList = new ArrayList<Skill>();
 			for (String id : resource.getSkills()) {
@@ -86,8 +104,31 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 			s.setSkills(skillList);
 			resourceManager.createResource(s);
 			model.setViewName("resources/resources");
-			int projectId = Integer.valueOf((String) request.getSession().getAttribute("projectId"));
-			model.addObject("resources", resourceManager.getResources(username, projectId));
+			model.addObject("resources",
+					resourceManager.getResources(username, projectId));
+		}
+		return model;
+	}
+
+	@RequestMapping(value = "/resources/removeResource", method = RequestMethod.POST)
+	public ModelAndView removeSkill(HttpServletRequest request,
+			@RequestParam("resourceId") String resourceId) {
+		ModelAndView model = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			String username = ((UserDetails) auth.getPrincipal()).getUsername();
+			Resource r = new Resource();
+			r.setId(Long.valueOf(resourceId));
+			r.setUsername(username);
+			r.setProjectId(Integer.valueOf((String) request.getSession()
+					.getAttribute("projectId")));
+			resourceManager.removeResource(r);
+			model.setViewName("resources/resources");
+			model.addObject("resources", resourceManager.getResources(
+					username,
+					Integer.valueOf((String) request.getSession().getAttribute(
+							"projectId"))));
 		}
 		return model;
 	}
@@ -98,10 +139,13 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 		ResourceForm resource = new ResourceForm();
 		model.addAttribute("resource", resource);
 		modelAux.setViewName("resources/newResource");
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
 		String username = ((UserDetails) auth.getPrincipal()).getUsername();
-		int projectId = Integer.valueOf((String) request.getSession().getAttribute("projectId"));
-		model.addAttribute("skills", skillManager.getSkills(username, projectId));
+		int projectId = Integer.valueOf((String) request.getSession()
+				.getAttribute("projectId"));
+		model.addAttribute("skills",
+				skillManager.getSkills(username, projectId));
 		return modelAux;
 	}
 
