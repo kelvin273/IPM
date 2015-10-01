@@ -77,6 +77,24 @@ public class SkillController extends WebMvcConfigurerAdapter {
 		}
 		return model;
 	}
+	
+	@RequestMapping(value = "/skills/removeSkill", method = RequestMethod.POST)
+	public ModelAndView removeSkill(HttpServletRequest request, @RequestParam("skillId") String skillId) {
+		ModelAndView model = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			String username = ((UserDetails) auth.getPrincipal()).getUsername();
+			Skill s = new Skill();
+			s.setId(Long.valueOf(skillId));
+			s.setUsername(username);
+			s.setProjectId(Integer.valueOf((String) request.getSession().getAttribute("projectId")));
+			skillManager.removeSkill(s);
+			model.setViewName("skills/skills");
+			model.addObject("skills", skillManager.getSkills(username,
+					Integer.valueOf((String) request.getSession().getAttribute("projectId"))));
+		}
+		return model;
+	}
 
 	@RequestMapping(value = "/skills/newSkill", method = RequestMethod.GET)
 	public ModelAndView newSkill(ModelMap model) {

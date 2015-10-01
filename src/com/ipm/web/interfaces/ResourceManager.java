@@ -8,5 +8,7 @@ public interface ResourceManager {
 
     public List<Resource> getResources(String username, int projectId);
     
-    public void createResource(Resource skill);
+    public void createResource(Resource resource);
+
+	public void removeResource(Resource resource);
 }

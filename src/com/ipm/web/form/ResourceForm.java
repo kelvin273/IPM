@@ -18,7 +18,7 @@ public class ResourceForm implements Serializable {
 	private float salary;
 	@NotNull
 	@Min(value = 1)
-	private float maxDedication;
+	private float maxDedication = 1.0f;
 	@Size(min = 5, max = 30)
 	@NotEmpty
 	private String name;

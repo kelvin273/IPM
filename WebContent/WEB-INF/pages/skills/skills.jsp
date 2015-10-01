@@ -6,7 +6,7 @@
 		<li><a href="<c:url value="/projects/projects"/>">Projects</a></li>
 		<li class="active">Skills</li>
 	</ul>
-	<h1>${projectName} </h1>
+	<h1>${projectName}</h1>
 	<h2>Skills</h2>
 
 	<%@include file="../common/menu.jsp"%>
@@ -32,6 +32,14 @@
 					<tr>
 						<td><c:out value="<%=i%>" /></td>
 						<td><c:out value="${s.name}" /></td>
+						<td>
+						<form:form method="POST"
+								action="/IPM/skills/removeSkill" style="height:4px">
+								<input id="skillId" name="skillId" type="hidden"
+									value="<c:out value="${s.id}"/>" />
+								<input type="submit" value="Remove"
+									class="btn btn-danger btn-xs" />
+							</form:form></td>
 					</tr>
 				</c:forEach>
 			</tbody>

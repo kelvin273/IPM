@@ -13,7 +13,7 @@ public class TaskForm implements Serializable {
 	@NotEmpty
 	private String name;
 	@Min(value = 1)
-	private double effort;
+	private float effort;
 	private boolean exclusive;
 	private String[] requiredSkills;
 	private String[] precedentTasks;
@@ -27,18 +27,18 @@ public class TaskForm implements Serializable {
 		this.name = name;
 	}
 
-	public double getEffort() {
+	public float getEffort() {
 		return effort;
 	}
 
-	public void setEffort(double effort) {
+	public void setEffort(float effort) {
 		this.effort = effort;
 	}
 
 	public boolean isExclusive() {
 		return exclusive;
 	}
-
+	
 	public void setExclusive(boolean exclusive) {
 		this.exclusive = exclusive;
 	}

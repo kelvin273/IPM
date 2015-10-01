@@ -9,4 +9,7 @@ public interface SkillManager {
     public List<Skill> getSkills(String username, int projectId);
     
     public void createSkill(Skill skill);
+    
+    public void removeSkill(Skill skill);
+
 }

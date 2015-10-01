@@ -30,4 +30,10 @@ public class SkillManagerImpl implements SkillManager {
 		this.skillDao = skillDao;
 	}
 
+	@Override
+	public void removeSkill(Skill skill) {
+		this.skillDao.removeSkill(skill);
+		
+	}
+
 }

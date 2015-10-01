@@ -30,4 +30,9 @@ public class ResourceManagerImpl implements ResourceManager {
 		this.resourceDao = resourceDao;
 	}
 
+	@Override
+	public void removeResource(Resource resource) {
+		this.resourceDao.removeResource(resource);
+		
+	}
 }

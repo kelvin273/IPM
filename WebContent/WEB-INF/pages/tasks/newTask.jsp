@@ -4,56 +4,60 @@
 	<ul class="breadcrumb">
 		<li><a href="<c:url value="/"/>">Home</a></li>
 		<li><a href="<c:url value="/projects/projects"/>">Projects</a></li>
-		<li><a href="<c:url value="/resources/resources"/>">Resources</a></li>
-		<li class="active">New Resource</li>
+		<li><a href="<c:url value="/tasks/tasks"/>">Tasks</a></li>
+		<li class="active">New Task</li>
 	</ul>
 	<%@include file="../common/menu.jsp"%>
-	<h1>${projectName} </h1>
-	<form:form method="POST" modelAttribute="resource"
-		commandName="resource" class="form-horizontal">
+	<h1>${projectName}</h1>
+	<form:form method="POST" modelAttribute="task"
+		commandName="task" class="form-horizontal">
 		<fieldset>
 			<legend>New Task</legend>
 			<c:set var="errors">
 				<form:errors path="name" cssclass="error" />
-				<form:errors path="maxDedication" cssclass="error"></form:errors>
-				<form:errors path="salary" cssclass="error"></form:errors>
-				<form:errors path="skills" cssclass="error"></form:errors>
 			</c:set>
 			<c:if test="${fn:length(errors)>0}">
 				<div class="error"></div>
 				<div class="alert alert-dismissible alert-danger">
 					<strong><form:errors path="name" cssclass="error"></form:errors>
-						<form:errors path="maxDedication" cssclass="error"></form:errors>
-						<form:errors path="salary" cssclass="error"></form:errors> <form:errors
-							path="skills" cssclass="error"></form:errors></strong>
+					</strong>
 				</div>
 			</c:if>
 			<div class="form-group">
-				<form:label path="name" class="col-lg-2 control-label">Resource Name</form:label>
+				<form:label path="name" class="col-lg-2 control-label">Task Name</form:label>
 				<div class="col-lg-10">
 					<form:input path="name" class="form-control" placeholder="Name" />
 				</div>
 			</div>
 			<div class="form-group">
-				<form:label path="maxDedication" class="col-lg-2 control-label">Max Dedication</form:label>
+				<form:label path="effort" class="col-lg-2 control-label">Effort</form:label>
 				<div class="col-lg-10">
-					<form:input path="maxDedication" class="form-control"
-						placeholder="Max Dedication" />
+					<form:input path="effort" class="form-control"
+						placeholder="Effort" />
 				</div>
 			</div>
 			<div class="form-group">
-				<form:label path="salary" class="col-lg-2 control-label">Cost</form:label>
+				<form:label path="exclusive" class="col-lg-2 control-label">Exclusive</form:label>
 				<div class="col-lg-10">
-					<form:input path="salary" class="form-control" placeholder="Cost" />
+					<form:checkbox path="exclusive" />
 				</div>
 			</div>
 			<div class="form-group">
-				<form:label path="skills" class="col-lg-2 control-label">skills</form:label>
+				<form:label path="requiredSkills" class="col-lg-2 control-label">Required skills</form:label>
 				<div class="col-lg-10">
-					<form:select multiple="true" path="skills"
-						form-control="form-control">
-						<form:options items="${skills}" itemValue="id" itemLabel="name" />
-					</form:select>
+					<form:select multiple="true" path="requiredSkills"
+ 						form-control="form-control" class="form-control">
+						<form:options items="${skills}" itemValue="id" itemLabel="name" /> 
+					</form:select> 
+				</div>
+			</div>
+			<div class="form-group">
+				<form:label path="resources" class="col-lg-2 control-label">Fixed Resources</form:label>
+				<div class="col-lg-10">
+					<form:select multiple="true" path="resources"
+ 						form-control="form-control" class="form-control">
+						<form:options items="${resources}" itemValue="id" itemLabel="name" /> 
+					</form:select> 
 				</div>
 			</div>
 			<input type="submit" align="center" value="Save"

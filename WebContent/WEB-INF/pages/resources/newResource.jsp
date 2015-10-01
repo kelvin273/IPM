@@ -50,7 +50,7 @@
 			<div class="form-group">
 				<form:label path="skills" class="col-lg-2 control-label">skills</form:label>
 				<div class="col-lg-10">
-					<form:select multiple="true" path="skills"
+					<form:select multiple="true" path="skills" class="form-control" 
 						form-control="form-control">
 						<form:options items="${skills}" itemValue="id" itemLabel="name" />
 					</form:select>

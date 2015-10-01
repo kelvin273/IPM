@@ -4,7 +4,7 @@
 	<ul class="breadcrumb">
 		<li><a href="<c:url value="/"/>">Home</a></li>
 		<li><a href="<c:url value="/projects/projects"/>">Projects</a></li>
-		<li class="active">Resources</li>
+		<li class="active">Tasks</li>
 	</ul>
 
 	<%@include file="../common/menu.jsp"%>
@@ -33,6 +33,13 @@
 					<tr>
 						<td><c:out value="<%=i%>" /></td>
 						<td><c:out value="${r.name}" /></td>
+						<td><form:form method="POST"
+								action="/IPM/tasks/removeTask" style="height:4px">
+								<input id="taskId" name="taskId" type="hidden"
+									value="<c:out value="${r.id}"/>" />
+								<input type="submit" value="Remove"
+									class="btn btn-danger btn-xs" />
+							</form:form></td>
 					</tr>
 				</c:forEach>
 			</tbody>

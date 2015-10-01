@@ -30,4 +30,9 @@ public class TaskManagerImpl implements TaskManager {
 		this.taskDao = taskDao;
 	}
 
+	@Override
+	public void removeTask(Task task) {
+		taskDao.removeTask(task);
+	}
+
 }

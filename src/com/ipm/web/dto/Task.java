@@ -11,7 +11,7 @@ public class Task {
 	private long projectId;
 	private String name;
 	private String username;
-	private double effort;
+	private float effort;
 	private boolean exclusive;
 	private List<Skill> requiredSkills;
 	private List<Task> precedentTasks;
@@ -33,11 +33,11 @@ public class Task {
 		this.name = name;
 	}
 
-	public double getEffort() {
+	public float getEffort() {
 		return effort;
 	}
 
-	public void setEffort(double effort) {
+	public void setEffort(float effort) {
 		this.effort = effort;
 	}
 

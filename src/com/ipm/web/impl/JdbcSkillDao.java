@@ -44,6 +44,14 @@ public class JdbcSkillDao implements SkillDao {
 				skill.getName(), skill.getProjectId());
 	}
 
+	@Override
+	public void removeSkill(Skill skill) {
+		jdbcTemplate
+				.update("DELETE FROM skills WHERE id=? and projectId IN (SELECT p.id from projects p, users u where u.username=p.username and p.id = ? and u.username=? )",
+						skill.getId(), skill.getProjectId(),
+						skill.getUsername());
+	}
+
 	private static class SkillMapper implements RowMapper<Skill> {
 		public Skill mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Skill s = new Skill();
