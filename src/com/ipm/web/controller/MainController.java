@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ipm.web.dto.PlanWS;
+
 @Controller
 public class MainController {
 
@@ -31,6 +33,7 @@ public class MainController {
 	  model.addObject("title", "Spring Security Login Form - Database Authentication");
 	  model.addObject("message", "This page is for ROLE_ADMIN only!");
 	  model.setViewName("admin");
+	  
 	  return model;
 
 	}
