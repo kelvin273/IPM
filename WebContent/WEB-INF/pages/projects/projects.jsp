@@ -69,6 +69,18 @@
 											class="btn btn-warning btn-xs" />
 									</form:form>
 								</div>
+								<div style="float: left">&nbsp;</div>
+								<div style="float: left">
+									<form:form method="POST" action="/IPM/plans/plans"
+										style="height:4px">
+										<input id="projectId" name="projectId" type="hidden"
+											value="<c:out value="${proj.id}"/>" />
+										<input id="projectName" name="projectName" type="hidden"
+											value="<c:out value="${proj.name}"/>" />
+										<input type="submit" value="plans"
+											class="btn btn-primary btn-xs" />
+									</form:form>
+								</div>
 							</div>
 						</td>
 					</tr>

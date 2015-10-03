@@ -2,7 +2,6 @@ package com.ipm.web.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -13,13 +12,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import com.ipm.web.dto.Resource;
 import com.ipm.web.dto.Skill;
 import com.ipm.web.dto.Task;
+import com.ipm.web.impl.mappers.TaskMapper;
 import com.ipm.web.interfaces.TaskDao;
 
 public class JdbcTaskDao implements TaskDao {
@@ -83,19 +82,6 @@ public class JdbcTaskDao implements TaskDao {
 				.update("DELETE FROM tasks WHERE id=? and projectId IN (SELECT p.id from projects p, users u where u.username=p.username and p.id = ? and u.username=? )",
 						task.getId(), task.getProjectId(),
 						task.getUsername());
-	}
-
-	private static class TaskMapper implements RowMapper<Task> {
-		public Task mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Task s = new Task();
-			s.setId(rs.getInt("id"));
-			s.setName(rs.getString("name"));
-			s.setProjectId(rs.getInt("projectId"));
-			s.setUsername(rs.getString("username"));
-			s.setEffort(rs.getFloat("effort"));
-			s.setExclusive(rs.getBoolean("exclusive"));
-			return s;
-		}
 	}
 
 }

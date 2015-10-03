@@ -1,7 +1,5 @@
 package com.ipm.web.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -9,9 +7,9 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import com.ipm.web.dto.Skill;
+import com.ipm.web.impl.mappers.SkillMapper;
 import com.ipm.web.interfaces.SkillDao;
 
 public class JdbcSkillDao implements SkillDao {
@@ -52,15 +50,5 @@ public class JdbcSkillDao implements SkillDao {
 						skill.getUsername());
 	}
 
-	private static class SkillMapper implements RowMapper<Skill> {
-		public Skill mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Skill s = new Skill();
-			s.setId(rs.getInt("id"));
-			s.setName(rs.getString("name"));
-			s.setProjectId(rs.getInt("projectId"));
-			s.setUsername(rs.getString("username"));
-			return s;
-		}
-	}
 
 }
