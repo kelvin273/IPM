@@ -11,4 +11,6 @@ public interface TaskDao {
 	public void createTask(Task task);
 
 	public void removeTask(Task task);
+
+	public Task getTask(String username, int projectId, int taskId);
 }

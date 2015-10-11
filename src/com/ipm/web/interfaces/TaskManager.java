@@ -8,6 +8,8 @@ public interface TaskManager {
 
     public List<Task> getTasks(String username, int projectId);
     
+    public Task getTask(String username, int projectId, int taskId);
+    
     public void createTask(Task task);
 
 	public void removeTask(Task task);

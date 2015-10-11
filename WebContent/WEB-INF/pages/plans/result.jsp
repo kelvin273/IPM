@@ -28,6 +28,11 @@
 	save this plan <br/>
 	share this plan<br/>
 	<br/><br/>
+	
+	
+	
+	
+	
 	Debug:
 	${plan.tasks.task}
 </div>

@@ -35,4 +35,9 @@ public class TaskManagerImpl implements TaskManager {
 		taskDao.removeTask(task);
 	}
 
+	@Override
+	public Task getTask(String username, int projectId, int taskId) {
+		return taskDao.getTask(username,  projectId,  taskId);
+	}
+
 }

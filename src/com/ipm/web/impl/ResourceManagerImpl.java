@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ipm.web.dto.Resource;
+import com.ipm.web.dto.Task;
 import com.ipm.web.interfaces.ResourceDao;
 import com.ipm.web.interfaces.ResourceManager;
 
@@ -34,5 +35,10 @@ public class ResourceManagerImpl implements ResourceManager {
 	public void removeResource(Resource resource) {
 		this.resourceDao.removeResource(resource);
 		
+	}
+
+	@Override
+	public Resource getResource(String username, int projectId, int resourceId) {
+		return this.resourceDao.getResource( username,  projectId,  resourceId);
 	}
 }

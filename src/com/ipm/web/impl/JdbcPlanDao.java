@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -38,9 +39,10 @@ public class JdbcPlanDao implements PlanDao {
 
 	@Override
 	public List<Plan> getPlans(String username, int projectId) {
-		List<Plan> resources = jdbcTemplate.query(
-				"select r.id, r.name, r.projectId, r.salary, u.username, r.maxDedication from resources r, projects p, users u where r.projectId = ? and r.projectID=p.id and u.username = p.username and u.username = ?",
-				new PlanMapper(), projectId, username);
+//		List<Plan> resources = jdbcTemplate.query(
+//				"select r.id, r.name, r.projectId, r.salary, u.username, r.maxDedication from resources r, projects p, users u where r.projectId = ? and r.projectID=p.id and u.username = p.username and u.username = ?",
+//				new PlanMapper(), projectId, username);
+		List<Plan> resources = new ArrayList<Plan>();
 		return resources;
 	}
 

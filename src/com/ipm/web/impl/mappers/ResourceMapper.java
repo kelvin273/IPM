@@ -14,7 +14,7 @@ public class ResourceMapper implements RowMapper<Resource> {
 		s.setName(rs.getString("name"));
 		s.setProjectId(rs.getInt("projectId"));
 		s.setUsername(rs.getString("username"));
-		s.setSalary(rs.getFloat("salary"));
+		s.setCost(rs.getFloat("salary"));
 		s.setMaxDedication(rs.getFloat("maxDedication"));
 		return s;
 	}

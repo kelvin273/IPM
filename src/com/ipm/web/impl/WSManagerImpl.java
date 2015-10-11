@@ -15,6 +15,8 @@ import com.adsf.ipm.ws.dto.ResourcesWS;
 import com.adsf.ipm.ws.dto.TaskWS;
 import com.adsf.ipm.ws.dto.TasksWS;
 import com.ipm.web.dto.Plan;
+import com.ipm.web.dto.Resource;
+import com.ipm.web.dto.Task;
 import com.ipm.web.interfaces.WSManager;
 
 public class WSManagerImpl implements WSManager {
@@ -28,41 +30,52 @@ public class WSManagerImpl implements WSManager {
 			QName qname = new QName("http://impl.ws.ipm.adsf.com/", "PlanServiceImplService");
 			Service planService = Service.create(url, qname);
 			PlanService service = planService.getPort(PlanService.class);
-			
-			//TODO example
-			ResourcesWS resources = new ResourcesWS();
-			 resources.setResource(new ArrayList<ResourceWS>());
-			 TasksWS tasks = new TasksWS();
-			 tasks.setTasks(new ArrayList<TaskWS>());
-			addResource(resources,"Antonio", 1, 10);
-			addResource(resources, "Carlos", 1, 10);
-			addTask(tasks, "t1", 10, false);
-			createTaskOfAPrecedentTask(tasks, "t2", 10, false, "t1");
-			planWS= service.getPlan(resources, tasks);
-			
+			ResourcesWS resources = mapResources(plan);
+			TasksWS tasks = mapTasks(plan);
+			planWS = service.getPlan(resources, tasks);
+
 		} catch (Exception e) {
 
 		}
 		return planWS;
 	}
-	
-	protected void addResource(ResourcesWS resources, String id, float maxDedication, float salary){
+
+	private TasksWS mapTasks(Plan plan) {
+		TasksWS tasks = new TasksWS();
+		tasks.setTasks(new ArrayList<TaskWS>());
+		for (Task task : plan.getTasks()) {
+			addTask(tasks, task.getName(), task.getEffort(), task.isExclusive());
+		}
+		return tasks;
+	}
+
+	private ResourcesWS mapResources(Plan plan) {
+		ResourcesWS resources = new ResourcesWS();
+		resources.setResource(new ArrayList<ResourceWS>());
+		for (Resource resource : plan.getResources()) {
+			addResource(resources, resource.getName(), resource.getMaxDedication(), resource.getCost());
+		}
+		return resources;
+	}
+
+	protected void addResource(ResourcesWS resources, String id, float maxDedication, float salary) {
 		ResourceWS r1 = new ResourceWS();
 		r1.setId(id);
 		r1.setMaxDedication(maxDedication);
 		r1.setSalary(salary);
 		resources.getResource().add(r1);
 	}
-	
-	protected void addTask(TasksWS tasks, String id,double effort, boolean exclusive){
+
+	protected void addTask(TasksWS tasks, String id, double effort, boolean exclusive) {
 		TaskWS t1 = new TaskWS();
 		t1.setEffort(effort);
 		t1.setId(id);
 		t1.setExclusive(exclusive);
 		tasks.getTasks().add(t1);
 	}
-	
-	protected void createTaskOfAPrecedentTask(TasksWS tasks, String id, double effort, boolean exclusive, String precedentTaskId) {
+
+	protected void createTaskOfAPrecedentTask(TasksWS tasks, String id, double effort, boolean exclusive,
+			String precedentTaskId) {
 		TaskWS secondTask = new TaskWS();
 		secondTask.setId(id);
 		secondTask.setEffort(effort);

@@ -10,9 +10,10 @@
 		href="/IPM/projects/projects">Projects</a>
 
 	<div class="jumbotron">
-		<h1>Jumbotron</h1>
-		<p>This is a simple hero unit, a simple jumbotron-style component
-			for calling extra attention to featured content or information.</p>
+		<h1>Intelligent Project Management</h1>
+		<p>Companies are principally concerned with reducing the duration
+			and cost of projects, and these two goals are in conflict with each
+			other</p>
 		<p>
 			<a class="btn btn-primary btn-lg">Learn more</a>
 		</p>

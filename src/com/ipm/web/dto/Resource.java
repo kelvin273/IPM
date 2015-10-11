@@ -6,7 +6,7 @@ public class Resource {
 
 	private long id;
 	private String name;
-	private double salary;
+	private float cost;
 	private float maxDedication;
 	private List<Skill> skills;
 	private String username;
@@ -44,12 +44,12 @@ public class Resource {
 		this.id = id;
 	}
 
-	public double getSalary() {
-		return salary;
+	public float getCost() {
+		return cost;
 	}
 
-	public void setSalary(double salary) {
-		this.salary = salary;
+	public void setCost(float cost) {
+		this.cost = cost;
 	}
 
 	public float getMaxDedication() {

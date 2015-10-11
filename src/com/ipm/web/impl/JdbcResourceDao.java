@@ -52,9 +52,11 @@ public class JdbcResourceDao implements ResourceDao {
 
 			@Override
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-				PreparedStatement ps = connection.prepareStatement("INSERT INTO resources(name, salary, maxDedication,projectId) values(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+				PreparedStatement ps = connection.prepareStatement(
+						"INSERT INTO resources(name, salary, maxDedication,projectId) values(?,?,?,?)",
+						Statement.RETURN_GENERATED_KEYS);
 				ps.setString(1, resource.getName());
-				ps.setDouble(2, resource.getSalary());
+				ps.setFloat(2, resource.getCost());
 				ps.setFloat(3, resource.getMaxDedication());
 				ps.setLong(4, resource.getProjectId());
 				return ps;
@@ -69,14 +71,20 @@ public class JdbcResourceDao implements ResourceDao {
 		}
 
 	}
-	
+
 	@Override
 	public void removeResource(Resource resource) {
-		jdbcTemplate
-				.update("DELETE FROM resources WHERE id=? and projectId IN (SELECT p.id from projects p, users u where u.username=p.username and p.id = ? and u.username=? )",
-						resource.getId(), resource.getProjectId(),
-						resource.getUsername());
+		jdbcTemplate.update(
+				"DELETE FROM resources WHERE id=? and projectId IN (SELECT p.id from projects p, users u where u.username=p.username and p.id = ? and u.username=? )",
+				resource.getId(), resource.getProjectId(), resource.getUsername());
 	}
 
+	@Override
+	public Resource getResource(String username, int projectId, int resourceId) {
+		List<Resource> resources = jdbcTemplate.query(
+				"select r.id, r.name, r.projectId, r.salary, u.username, r.maxDedication from resources r, projects p, users u where r.projectId = ? and r.projectID=p.id and u.username = p.username and u.username = ? and r.id = ?",
+				new ResourceMapper(), projectId, username,resourceId);
+		return resources.get(0);
+	}
 
 }
