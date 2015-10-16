@@ -89,3 +89,10 @@ CREATE TABLE resourceTasks (
   CONSTRAINT fk_resourceTasks_tasks FOREIGN KEY (taskId) REFERENCES tasks (id)
   ); 
   
+CREATE TABLE dependentTasks (
+  taskId INTEGER NOT NULL,
+  dependentTaskId INTEGER NOT NULL,
+  PRIMARY KEY (taskId, dependentTaskId),
+  CONSTRAINT fk_dependentTasks_dependentTask FOREIGN KEY (dependentTaskId) REFERENCES tasks (id),
+  CONSTRAINT fk_dependentTasks_task FOREIGN KEY (taskId) REFERENCES tasks (id)
+  ); 

@@ -88,6 +88,8 @@ public class TaskController extends WebMvcConfigurerAdapter {
 					skillManager.getSkills(username, projectId));
 			model.addObject("resources",
 					resourceManager.getResources(username, projectId));
+			model.addObject("precedentTasks",
+					taskManager.getTasks(username, projectId));
 			return model;
 		}
 		Authentication auth = SecurityContextHolder.getContext()
@@ -117,6 +119,14 @@ public class TaskController extends WebMvcConfigurerAdapter {
 			}
 			s.setResources(resourceList);
 			
+			List<Task> taskList = new ArrayList<Task>();
+			for (String id : task.getPrecedentTasks()) {
+				Task t = new Task();
+				t.setId(Long.valueOf(id));
+				taskList.add(t);
+			}
+			s.setPrecedentTasks(taskList);
+			
 			taskManager.createTask(s);
 			model.setViewName("tasks/tasks");
 			model.addObject("tasks", taskManager.getTasks(
@@ -143,6 +153,8 @@ public class TaskController extends WebMvcConfigurerAdapter {
 				skillManager.getSkills(username, projectId));
 		model.addAttribute("resources",
 				resourceManager.getResources(username, projectId));
+		model.addAttribute("precedentTasks",
+				taskManager.getTasks(username, projectId));
 		return modelAux;
 	}
 	

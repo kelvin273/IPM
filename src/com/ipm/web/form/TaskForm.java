@@ -18,7 +18,7 @@ public class TaskForm implements Serializable {
 	private String[] requiredSkills;
 	private String[] precedentTasks;
 	private String[] resources;
-
+	
 	public String getName() {
 		return name;
 	}

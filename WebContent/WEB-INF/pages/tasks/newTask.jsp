@@ -60,6 +60,15 @@
 					</form:select> 
 				</div>
 			</div>
+			<div class="form-group">
+				<form:label path="precedentTasks" class="col-lg-2 control-label">Precedent tasks</form:label>
+				<div class="col-lg-10">
+					<form:select multiple="true" path="precedentTasks"
+ 						form-control="form-control" class="form-control">
+						<form:options items="${precedentTasks}" itemValue="id" itemLabel="name" /> 
+					</form:select> 
+				</div>
+			</div>
 			<input type="submit" align="center" value="Save"
 				class="btn btn-primary">
 	</form:form>

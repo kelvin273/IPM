@@ -17,7 +17,7 @@ public class TaskManagerImpl implements TaskManager {
 
 	@Override
 	public List<Task> getTasks(String username, int projectId) {
-		return taskDao.getTasks(username,projectId);
+		return taskDao.getTasks(username, projectId);
 	}
 
 	@Override
@@ -37,7 +37,10 @@ public class TaskManagerImpl implements TaskManager {
 
 	@Override
 	public Task getTask(String username, int projectId, int taskId) {
-		return taskDao.getTask(username,  projectId,  taskId);
+		Task task = taskDao.getTask(username, projectId, taskId);
+		List<Task> precedentTasks = taskDao.getPrecedentTasks(taskId);
+		task.setPrecedentTasks(precedentTasks);
+		return task;
 	}
 
 }

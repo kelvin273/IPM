@@ -13,4 +13,6 @@ public interface TaskDao {
 	public void removeTask(Task task);
 
 	public Task getTask(String username, int projectId, int taskId);
+	
+	public List<Task> getPrecedentTasks(int taskId);
 }
