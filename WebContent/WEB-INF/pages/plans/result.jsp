@@ -1,9 +1,9 @@
 
 <%@include file="../common/header.jsp"%>
 
-<%@ page import="java.util.Date" %>
-<%@ page import="com.adsf.ipm.ws.dto.task.TaskSolution" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.Date"%>
+<%@ page import="com.adsf.ipm.ws.dto.task.TaskSolution"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 
@@ -18,30 +18,70 @@
 		<li class="active">Result</li>
 	</ul>
 	<%@include file="../common/menu.jsp"%>
-	<h1>${projectName}</h1>
-	Cost: ${plan.projectCost} End: ${plan.projectEnd} <br />
-	<c:forEach items="${plan.tasks.task}" var="task">
-		<h4>${task.id}</h4>
-		task Start ${task.taskStart}
-		task End  ${task.taskEnd}
-		<br />
-		Resources: 
-		<c:forEach items="${task.resources.resource}" var="resource">
-			${resource.id} ${resource.participation}
-		</c:forEach>
-		<br />
-	</c:forEach>
-	<br /> <br /> save this plan <br /> share this plan<br /> <br /> <br />
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Plan</h3>
+		</div>
+		<div class="panel-body">
+
+
+			<h1>${projectName}</h1>
+
+			<div id="container">
+				<div class="svg"></div>
+				<div id="tag"></div>
+			</div>
+			<h4>
+				Total Cost:
+				<fmt:formatNumber type="number" maxFractionDigits="2"
+					value="${plan.projectCost}" />
+				&nbsp; Total Time:
+				<fmt:formatNumber type="number" maxFractionDigits="2"
+					value="${plan.projectEnd}" />
+			</h4>
+
+			<h4>Breakdown Structure:</h4>
+</br>
+			<c:forEach items="${plan.tasks.task}" var="task">
+				<h4><b>${task.id}</b></h4>
+				<table class="table table-striped table-hover ">
+					<thead>
+						<tr>
+							<th>Resource</th>
+							<th>Participation</th>
+						</tr>
+					</thead>
+					<tbody>
 
 
 
-	<div id="container">
-		<div class="svg"></div>
-		<div id="tag"></div>
-	</div>
-	<script src='/IPM/js/d3.min.js'></script>
+						<c:set var="total" value="${task.taskEnd + task.taskStart}"/>
+								Total time: <fmt:formatNumber type="number" maxFractionDigits="2"
+						 					value="${total}" /> 
+						<%-- 		task End  <fmt:formatNumber type="number" maxFractionDigits="2" --%>
+						<%-- 					value="${task.taskEnd}" /> --%>
+						<c:forEach items="${task.resources.resource}" var="resource">
+							<tr>
+								<td>${resource.id}</td>
+								<td><fmt:formatNumber type="number" maxFractionDigits="2"
+										value="${resource.participation}" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:forEach>
 
-	<script>
+			<br /> <br /> <input type="submit" value="Save"
+				class="btn btn-primary " /> <input type="submit" value="Share"
+				class="btn btn-info " /> <br /> <br />
+
+
+
+
+			<script src='/IPM/js/d3.min.js'></script>
+
+			<script>
 		var taskArray = [ 
 		
 		<c:forEach items="${plan.tasks.task}" var="task">
@@ -59,7 +99,11 @@
 
 		];
 	</script>
-	<script src="/IPM/js/index.js"></script>
+			<script src="/IPM/js/index.js"></script>
+
+		</div>
+
+	</div>
 	Debug: ${plan.tasks.task}
 </div>
 <%@include file="../common/footer.jsp"%>

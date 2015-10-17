@@ -29,8 +29,6 @@ CREATE TABLE projects (
   CONSTRAINT fk_username_project FOREIGN KEY (username) REFERENCES users (username));
   
 INSERT INTO projects (name, username) VALUES ('P1', 'alex');
-INSERT INTO projects (name, username) VALUES ('P2', 'alex');
-INSERT INTO projects (name, username) VALUES ('P3', 'alex');
   
 CREATE TABLE skills (
   id INTEGER NOT NULL AUTO_INCREMENT,

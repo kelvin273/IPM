@@ -51,7 +51,7 @@ public class JdbcTaskDao implements TaskDao {
 	@Override
 	public List<Task> getPrecedentTasks(int taskId) {
 		return jdbcTemplate
-				.query("select t.id, t.name, t.effort, t.exclusive from tasks t, dependentTasks dt where t.id=dt.taskId and t.id=?",
+				.query("select t.id, t.name, t.effort, t.exclusive from tasks t, dependentTasks dt where t.id=dt.dependentTaskId and dt.taskId=?",
 						new PrecedentTaskMapper(), taskId);
 
 	}
