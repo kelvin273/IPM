@@ -27,8 +27,8 @@ public class WSManagerImpl implements WSManager {
 	public PlanWS getPlan(Plan plan) {
 		PlanWS planWS = new PlanWS();
 		try {
-//			 URL url = new URL("http://ipm-gc.rhcloud.com/ws?wsdl");
-			URL url = new URL("http://localhost:8888/ts?wsdl");
+			 URL url = new URL("http://ipm-gc.rhcloud.com/ws?wsdl");
+//			URL url = new URL("http://localhost:8888/ts?wsdl");
 			QName qname = new QName("http://impl.ws.ipm.adsf.com/", "PlanServiceImplService");
 			Service planService = Service.create(url, qname);
 			PlanService service = planService.getPort(PlanService.class);

@@ -8,7 +8,8 @@
 
 	<a href="/IPM/projects/newProject">New project</a> <a
 		href="/IPM/projects/projects">Projects</a>
-
+	<br/>
+	<br/>
 	<div class="jumbotron">
 		<h1>Intelligent Project Management</h1>
 		<p>Companies are principally concerned with reducing the duration

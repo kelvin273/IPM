@@ -47,7 +47,7 @@
 					participation += "<br/> "+rtp.getId()+ "("+df.format(rtp.getParticipation())+")";
 				}
 				%>
-				<c:set var="today" value="<%=new Date(new Date().getTime() + (60*60*24*1000) * (int)taskSolution.getTaskStart()+1 )%>"/>
+				<c:set var="today" value="<%=new Date(new Date().getTime() + (60*60*24*1000) * (int)taskSolution.getTaskStart()+1 )%>" />
 			 	{
 			 		<% float duration = Float.valueOf(df.format((float) taskSolution.getTaskEnd() - (float) taskSolution
 							.getTaskStart())); 

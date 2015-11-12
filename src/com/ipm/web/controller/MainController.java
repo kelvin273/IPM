@@ -71,5 +71,15 @@ public class MainController {
 	  return model;
 
 	}
+	
+	@RequestMapping(value = "/error", method = RequestMethod.POST)
+	public ModelAndView error() {
 
+	  ModelAndView model = new ModelAndView();
+		
+	  model.setViewName("error");
+	  return model;
+
+	}
+	
 }

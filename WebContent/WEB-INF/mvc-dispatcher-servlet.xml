@@ -28,6 +28,9 @@
 	</bean>
 
 	<!-- Controllers -->
+	<bean class="com.ipm.web.controller.ContactController">
+	</bean>
+	
 	<bean class="com.ipm.web.controller.ProjectController">
 		<property name="projectManager" ref="ProjectManagerImpl" />
 	</bean>

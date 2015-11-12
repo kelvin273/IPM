@@ -94,7 +94,8 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 			s.setUsername(username);
 			s.setProjectId(Integer.valueOf((String) request.getSession()
 					.getAttribute("projectId")));
-
+			s.setMaxDedication(resource.getMaxDedication());
+			s.setCost(resource.getSalary());
 			List<Skill> skillList = new ArrayList<Skill>();
 			for (String id : resource.getSkills()) {
 				Skill skill = new Skill();
