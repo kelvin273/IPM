@@ -2,7 +2,12 @@
 		<form:form method="POST" modelAttribute="skill" commandName="skill"
 			class="form-horizontal">
 			<fieldset>
-				<legend>New Skill</legend>
+				<legend>Skill</legend>
+				<c:if test="${success}">
+				<div class="alert alert-dismissible alert-success">
+					<strong>Skill updated!</strong>
+				</div>
+			</c:if>
 				<c:set var="errors">
 					<form:errors path="name" cssclass="error" />
 				</c:set>

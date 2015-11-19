@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class TaskForm implements Serializable {
 
+	private long id;
 	@Size(min = 5, max = 30)
 	@NotEmpty
 	private String name;
@@ -18,7 +19,15 @@ public class TaskForm implements Serializable {
 	private String[] requiredSkills;
 	private String[] precedentTasks;
 	private String[] resources;
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -38,7 +47,7 @@ public class TaskForm implements Serializable {
 	public boolean isExclusive() {
 		return exclusive;
 	}
-	
+
 	public void setExclusive(boolean exclusive) {
 		this.exclusive = exclusive;
 	}

@@ -1,4 +1,4 @@
-package com.ipm.web.interfaces;
+package com.ipm.web.interfaces.dao;
 
 import java.util.List;
 

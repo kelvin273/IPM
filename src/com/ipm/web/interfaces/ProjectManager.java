@@ -9,4 +9,6 @@ public interface ProjectManager {
     public List<Project> getProjects(String username);
     
     public void createProject(Project project);
+    public void updateProject(Project project);
+    public void removeProject(Project project);
 }

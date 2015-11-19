@@ -7,7 +7,6 @@
 		<li class="active">Projects</li>
 	</ul>
 
-	<%@include file="../common/menu.jsp"%>
 	<h1>Projects</h1>
 
 	<a href="/IPM/projects/newProject">New project</a>
@@ -78,7 +77,17 @@
 										<input id="projectName" name="projectName" type="hidden"
 											value="<c:out value="${proj.name}"/>" />
 										<input type="submit" value="plans"
-											class="btn btn-primary btn-xs" />
+											class="btn btn-default btn-xs" />
+									</form:form>
+								</div>
+								<div style="float: left">&nbsp;</div>
+								<div style="float: right">
+									<form:form method="POST" action="/IPM/projects/removeProject"
+										style="height:4px">
+										<input id="projectId" name="projectId" type="hidden"
+											value="<c:out value="${proj.id}"/>" />
+										<input type="submit" value="Remove"
+											class="btn btn-danger btn-xs" />
 									</form:form>
 								</div>
 							</div>

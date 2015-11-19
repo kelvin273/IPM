@@ -59,48 +59,48 @@
 	<bean class="com.ipm.web.controller.MainController" />
 
 	<!-- Managers -->
-	<bean id="ProjectManagerImpl" class="com.ipm.web.impl.ProjectManagerImpl">
+	<bean id="ProjectManagerImpl" class="com.ipm.web.impl.manager.ProjectManagerImpl">
 		<property name="projectDao" ref="projectDao" />
 	</bean>
 
-	<bean id="SkillManagerImpl" class="com.ipm.web.impl.SkillManagerImpl">
+	<bean id="SkillManagerImpl" class="com.ipm.web.impl.manager.SkillManagerImpl">
 		<property name="skillDao" ref="skillDao" />
 	</bean>
 
-	<bean id="ResourceManagerImpl" class="com.ipm.web.impl.ResourceManagerImpl">
+	<bean id="ResourceManagerImpl" class="com.ipm.web.impl.manager.ResourceManagerImpl">
 		<property name="resourceDao" ref="resourceDao" />
 	</bean>
 	
-	<bean id="TaskManagerImpl" class="com.ipm.web.impl.TaskManagerImpl">
+	<bean id="TaskManagerImpl" class="com.ipm.web.impl.manager.TaskManagerImpl">
 		<property name="taskDao" ref="taskDao" />
 	</bean>
 	
-	<bean id="PlanManagerImpl" class="com.ipm.web.impl.PlanManagerImpl">
+	<bean id="PlanManagerImpl" class="com.ipm.web.impl.manager.PlanManagerImpl">
 		<property name="planDao" ref="planDao" />
 	</bean>
 
 	<!-- DAOs -->
-	<bean id="projectDao" class="com.ipm.web.impl.JdbcProjectDao"
+	<bean id="projectDao" class="com.ipm.web.impl.dao.JdbcProjectDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean id="skillDao" class="com.ipm.web.impl.JdbcSkillDao"
+	<bean id="skillDao" class="com.ipm.web.impl.dao.JdbcSkillDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean id="resourceDao" class="com.ipm.web.impl.JdbcResourceDao"
+	<bean id="resourceDao" class="com.ipm.web.impl.dao.JdbcResourceDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
-	<bean id="taskDao" class="com.ipm.web.impl.JdbcTaskDao"
+	<bean id="taskDao" class="com.ipm.web.impl.dao.JdbcTaskDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
-	<bean id="planDao" class="com.ipm.web.impl.JdbcPlanDao"
+	<bean id="planDao" class="com.ipm.web.impl.dao.JdbcPlanDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>

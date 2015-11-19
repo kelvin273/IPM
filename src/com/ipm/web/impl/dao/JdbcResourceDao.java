@@ -1,4 +1,4 @@
-package com.ipm.web.impl;
+package com.ipm.web.impl.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import com.ipm.web.dto.Resource;
 import com.ipm.web.dto.Skill;
 import com.ipm.web.impl.mappers.ResourceMapper;
-import com.ipm.web.interfaces.ResourceDao;
+import com.ipm.web.interfaces.dao.ResourceDao;
 
 public class JdbcResourceDao implements ResourceDao {
 
@@ -85,6 +85,12 @@ public class JdbcResourceDao implements ResourceDao {
 				"select r.id, r.name, r.projectId, r.salary, u.username, r.maxDedication from resources r, projects p, users u where r.projectId = ? and r.projectID=p.id and u.username = p.username and u.username = ? and r.id = ?",
 				new ResourceMapper(), projectId, username,resourceId);
 		return resources.get(0);
+	}
+
+	@Override
+	public void updateResource(Resource resource) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

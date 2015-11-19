@@ -1,4 +1,4 @@
-package com.ipm.web.impl;
+package com.ipm.web.impl.manager;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import org.apache.commons.logging.LogFactory;
 
 import com.adsf.ipm.ws.dto.PlanWS;
 import com.ipm.web.dto.Plan;
-import com.ipm.web.interfaces.PlanDao;
 import com.ipm.web.interfaces.PlanManager;
 import com.ipm.web.interfaces.WSManager;
+import com.ipm.web.interfaces.dao.PlanDao;
 
 public class PlanManagerImpl implements PlanManager {
 	/** Logger for this class and subclasses */

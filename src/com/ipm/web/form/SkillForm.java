@@ -6,18 +6,27 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class SkillForm implements Serializable{
-	
-	@Size(min=5, max=30)
+public class SkillForm implements Serializable {
+
+	private long id;
+	@Size(min = 5, max = 30)
 	@NotEmpty
 	private String name;
-
+	
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

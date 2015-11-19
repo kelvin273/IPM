@@ -1,21 +1,17 @@
 <%@include file="common/header.jsp"%>
-<%@include file="common/menu.jsp"%>
+
 
 <div class="container">
 	<ul class="breadcrumb">
 		<li><a href="<c:url value="/"/>">Home</a></li>
 		<li class="active">Contact</li>
 	</ul>
+	<%@include file="common/menu.jsp"%>
 
-	<a href="/IPM/projects/newProject">New project</a> <a
-		href="/IPM/projects/projects">Projects</a> <br /> <br />
-		
-		
-		
-		<form:form method="POST" modelAttribute="contact" commandName="contact"
+	<form:form method="POST" modelAttribute="contact" commandName="contact"
 		class="form-horizontal">
 		<fieldset>
-			<legend>New Project</legend>
+			<legend>Contact</legend>
 			<c:set var="errors">
 				<form:errors path="email" cssclass="error" />
 			</c:set>
@@ -34,7 +30,8 @@
 			<div class="form-group">
 				<form:label path="message" class="col-lg-2 control-label">Message</form:label>
 				<div class="col-lg-10">
-					<form:textarea path="message" class="form-control" placeholder="Message" rows="3"/>
+					<form:textarea path="message" class="form-control"
+						placeholder="Message" rows="3" />
 					<span class="help-block"></span>
 				</div>
 			</div>
@@ -44,8 +41,8 @@
 				</div>
 			</div>
 	</form:form>
-	
-	
+
+
 </div>
 <%@include file="common/footer.jsp"%>
 

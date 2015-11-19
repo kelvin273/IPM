@@ -13,4 +13,6 @@ public interface TaskManager {
     public void createTask(Task task);
 
 	public void removeTask(Task task);
+	
+	public void updateTask(Task task);
 }

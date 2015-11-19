@@ -59,10 +59,8 @@ public class SkillController extends WebMvcConfigurerAdapter {
 	public ModelAndView createSkill(HttpServletRequest request, @Valid @ModelAttribute("skill") SkillForm skill,
 			BindingResult result) {
 		ModelAndView model = new ModelAndView();
-		if (result.hasErrors()) {
-			model.setViewName("skills/newSkill");
-			return model;
-		}
+		model.setViewName("skills/newSkill");
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
@@ -70,10 +68,16 @@ public class SkillController extends WebMvcConfigurerAdapter {
 			s.setName(skill.getName());
 			s.setUsername(username);
 			s.setProjectId(Integer.valueOf((String) request.getSession().getAttribute("projectId")));
-			skillManager.createSkill(s);
-			model.setViewName("skills/skills");
-			model.addObject("skills", skillManager.getSkills(username,
-					Integer.valueOf((String) request.getSession().getAttribute("projectId"))));
+			s.setId(skill.getId());
+			if(0== s.getId()){
+				skillManager.createSkill(s);
+			}else{
+				skillManager.updateSkill(s);
+			}
+			model.setViewName("skills/newSkill");
+			if (!result.hasErrors()) {
+				model.addObject("success", true);
+			}
 		}
 		return model;
 	}
@@ -92,6 +96,7 @@ public class SkillController extends WebMvcConfigurerAdapter {
 			model.setViewName("skills/skills");
 			model.addObject("skills", skillManager.getSkills(username,
 					Integer.valueOf((String) request.getSession().getAttribute("projectId"))));
+			
 		}
 		return model;
 	}

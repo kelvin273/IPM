@@ -1,4 +1,4 @@
-package com.ipm.web.interfaces;
+package com.ipm.web.interfaces.dao;
 
 import java.util.List;
 
@@ -9,4 +9,8 @@ public interface ProjectDao {
 	public List<Project> getProjects(String username);
 
 	public void createProject(Project project);
+
+	public void updateProject(Project project);
+
+	public void removeProject(Project project);
 }

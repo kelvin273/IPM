@@ -77,62 +77,58 @@ public class TaskController extends WebMvcConfigurerAdapter {
 	public ModelAndView createTask(HttpServletRequest request,
 			@Valid @ModelAttribute("task") TaskForm task, BindingResult result) {
 		ModelAndView model = new ModelAndView();
-		if (result.hasErrors()) {
-			model.setViewName("tasks/newTask");
-			Authentication auth = SecurityContextHolder.getContext()
-					.getAuthentication();
-			String username = ((UserDetails) auth.getPrincipal()).getUsername();
-			int projectId = Integer.valueOf((String) request.getSession()
-					.getAttribute("projectId"));
-			model.addObject("skills",
-					skillManager.getSkills(username, projectId));
-			model.addObject("resources",
-					resourceManager.getResources(username, projectId));
-			model.addObject("precedentTasks",
-					taskManager.getTasks(username, projectId));
-			return model;
-		}
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
+		String username = ((UserDetails) auth.getPrincipal()).getUsername();
+		model.setViewName("tasks/newTask");
+		int projectId = Integer.valueOf((String) request.getSession()
+				.getAttribute("projectId"));
+		model.addObject("task", task);
+		model.addObject("skills", skillManager.getSkills(username, projectId));
+		model.addObject("resources",
+				resourceManager.getResources(username, projectId));
+		model.addObject("precedentTasks",
+				taskManager.getTasks(username, projectId));
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			String username = ((UserDetails) auth.getPrincipal()).getUsername();
-			Task s = new Task();
-			s.setName(task.getName());
-			s.setUsername(username);
-			s.setProjectId(Integer.valueOf((String) request.getSession()
-					.getAttribute("projectId")));
-			s.setExclusive(task.isExclusive());
-			s.setEffort(task.getEffort());
+			Task taskToBeCreated = new Task();
+			taskToBeCreated.setName(task.getName());
+			taskToBeCreated.setUsername(username);
+			taskToBeCreated.setProjectId(Integer.valueOf((String) request
+					.getSession().getAttribute("projectId")));
+			taskToBeCreated.setExclusive(task.isExclusive());
+			taskToBeCreated.setEffort(task.getEffort());
 			List<Skill> skillList = new ArrayList<Skill>();
 			for (String id : task.getRequiredSkills()) {
 				Skill skill = new Skill();
 				skill.setId(Long.valueOf(id));
 				skillList.add(skill);
 			}
-			s.setRequiredSkills(skillList);
-			
+			taskToBeCreated.setRequiredSkills(skillList);
+
 			List<Resource> resourceList = new ArrayList<Resource>();
 			for (String id : task.getResources()) {
 				Resource r = new Resource();
 				r.setId(Long.valueOf(id));
 				resourceList.add(r);
 			}
-			s.setResources(resourceList);
-			
+			taskToBeCreated.setResources(resourceList);
+
 			List<Task> taskList = new ArrayList<Task>();
 			for (String id : task.getPrecedentTasks()) {
 				Task t = new Task();
 				t.setId(Long.valueOf(id));
 				taskList.add(t);
 			}
-			s.setPrecedentTasks(taskList);
-			
-			taskManager.createTask(s);
-			model.setViewName("tasks/tasks");
-			model.addObject("tasks", taskManager.getTasks(
-					username,
-					Integer.valueOf((String) request.getSession().getAttribute(
-							"projectId"))));
+			taskToBeCreated.setId(task.getId());
+			taskToBeCreated.setPrecedentTasks(taskList);
+			if (0 == taskToBeCreated.getId()) {
+				taskManager.createTask(taskToBeCreated);
+			} else {
+				taskManager.updateTask(taskToBeCreated);
+			}
+			if (!result.hasErrors()) {
+				model.addObject("success", true);
+			}
 		}
 		return model;
 	}
@@ -157,21 +153,27 @@ public class TaskController extends WebMvcConfigurerAdapter {
 				taskManager.getTasks(username, projectId));
 		return modelAux;
 	}
-	
+
 	@RequestMapping(value = "/tasks/removeTask", method = RequestMethod.POST)
-	public ModelAndView removeSkill(HttpServletRequest request, @RequestParam("taskId") String taskId) {
+	public ModelAndView removeSkill(HttpServletRequest request,
+			@RequestParam("taskId") String taskId) {
 		ModelAndView model = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			String username = ((UserDetails) auth.getPrincipal()).getUsername();
 			Task s = new Task();
 			s.setId(Long.valueOf(taskId));
 			s.setUsername(username);
-			s.setProjectId(Integer.valueOf((String) request.getSession().getAttribute("projectId")));
+			s.setProjectId(Integer.valueOf((String) request.getSession()
+					.getAttribute("projectId")));
 			taskManager.removeTask(s);
-			model.setViewName("tasks/tasks");
-			model.addObject("tasks", taskManager.getTasks(username,
-					Integer.valueOf((String) request.getSession().getAttribute("projectId"))));
+			model.setViewName("tasks/newTask");
+			model.addObject("tasks", taskManager.getTasks(
+					username,
+					Integer.valueOf((String) request.getSession().getAttribute(
+							"projectId"))));
+			model.addObject("success", true);
 		}
 		return model;
 	}

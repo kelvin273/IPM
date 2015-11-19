@@ -1,12 +1,10 @@
-package com.ipm.web.impl;
+package com.ipm.web.impl.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -22,7 +20,7 @@ import com.ipm.web.dto.Skill;
 import com.ipm.web.dto.Task;
 import com.ipm.web.impl.mappers.PrecedentTaskMapper;
 import com.ipm.web.impl.mappers.TaskMapper;
-import com.ipm.web.interfaces.TaskDao;
+import com.ipm.web.interfaces.dao.TaskDao;
 
 public class JdbcTaskDao implements TaskDao {
 
@@ -112,6 +110,12 @@ public class JdbcTaskDao implements TaskDao {
 				.query("select t.id, t.name, t.effort, t.exclusive, t.projectId, u.username from tasks t, projects p, users u where t.projectId = ? and t.projectID=p.id and u.username = p.username and u.username = ? and t.id = ?",
 						new TaskMapper(), projectId, username, taskId);
 		return tasks.get(0);
+	}
+
+	@Override
+	public void updateTask(Task task) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

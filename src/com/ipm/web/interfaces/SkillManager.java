@@ -11,5 +11,7 @@ public interface SkillManager {
     public void createSkill(Skill skill);
     
     public void removeSkill(Skill skill);
+    
+    public void updateSkill(Skill skill);
 
 }

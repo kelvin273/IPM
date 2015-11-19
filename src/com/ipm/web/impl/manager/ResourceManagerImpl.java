@@ -1,4 +1,4 @@
-package com.ipm.web.impl;
+package com.ipm.web.impl.manager;
 
 import java.util.List;
 
@@ -6,9 +6,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ipm.web.dto.Resource;
-import com.ipm.web.dto.Task;
-import com.ipm.web.interfaces.ResourceDao;
 import com.ipm.web.interfaces.ResourceManager;
+import com.ipm.web.interfaces.dao.ResourceDao;
 
 public class ResourceManagerImpl implements ResourceManager {
 	/** Logger for this class and subclasses */
@@ -24,6 +23,12 @@ public class ResourceManagerImpl implements ResourceManager {
 	@Override
 	public void createResource(Resource resource) {
 		resourceDao.createResource(resource);
+
+	}
+	
+	@Override
+	public void updateResource(Resource resource) {
+		resourceDao.updateResource(resource);
 
 	}
 

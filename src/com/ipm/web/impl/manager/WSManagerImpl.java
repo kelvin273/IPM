@@ -1,4 +1,4 @@
-package com.ipm.web.impl;
+package com.ipm.web.impl.manager;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,6 +19,7 @@ import com.adsf.ipm.ws.dto.TasksWS;
 import com.ipm.web.dto.Plan;
 import com.ipm.web.dto.Resource;
 import com.ipm.web.dto.Task;
+import com.ipm.web.impl.MyServiceLogHandler;
 import com.ipm.web.interfaces.WSManager;
 
 public class WSManagerImpl implements WSManager {
@@ -27,7 +28,7 @@ public class WSManagerImpl implements WSManager {
 	public PlanWS getPlan(Plan plan) {
 		PlanWS planWS = new PlanWS();
 		try {
-			 URL url = new URL("http://ipm-gc.rhcloud.com/ws?wsdl");
+			URL url = new URL("http://ipm-gc.rhcloud.com/ws?wsdl");
 //			URL url = new URL("http://localhost:8888/ts?wsdl");
 			QName qname = new QName("http://impl.ws.ipm.adsf.com/", "PlanServiceImplService");
 			Service planService = Service.create(url, qname);

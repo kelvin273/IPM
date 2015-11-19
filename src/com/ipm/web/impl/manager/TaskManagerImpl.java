@@ -1,4 +1,4 @@
-package com.ipm.web.impl;
+package com.ipm.web.impl.manager;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ipm.web.dto.Task;
-import com.ipm.web.interfaces.TaskDao;
 import com.ipm.web.interfaces.TaskManager;
+import com.ipm.web.interfaces.dao.TaskDao;
 
 public class TaskManagerImpl implements TaskManager {
 	/** Logger for this class and subclasses */
@@ -23,6 +23,12 @@ public class TaskManagerImpl implements TaskManager {
 	@Override
 	public void createTask(Task task) {
 		taskDao.createTask(task);
+
+	}
+	
+	@Override
+	public void updateTask(Task task) {
+		taskDao.updateTask(task);
 
 	}
 

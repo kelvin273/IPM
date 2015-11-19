@@ -1,4 +1,4 @@
-package com.ipm.web.interfaces;
+package com.ipm.web.interfaces.dao;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ public interface TaskDao {
 	public void createTask(Task task);
 
 	public void removeTask(Task task);
+	
+	public void updateTask(Task task);
 
 	public Task getTask(String username, int projectId, int taskId);
 	

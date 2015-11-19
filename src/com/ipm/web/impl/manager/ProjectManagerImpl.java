@@ -1,4 +1,4 @@
-package com.ipm.web.impl;
+package com.ipm.web.impl.manager;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ipm.web.dto.Project;
-import com.ipm.web.interfaces.ProjectDao;
 import com.ipm.web.interfaces.ProjectManager;
+import com.ipm.web.interfaces.dao.ProjectDao;
 
 public class ProjectManagerImpl implements ProjectManager {
 	/** Logger for this class and subclasses */
@@ -28,6 +28,16 @@ public class ProjectManagerImpl implements ProjectManager {
 
 	public void setProjectDao(ProjectDao projectDao) {
 		this.projectDao = projectDao;
+	}
+
+	@Override
+	public void updateProject(Project project) {
+		projectDao.updateProject(project);
+	}
+	
+	@Override
+	public void removeProject(Project project) {
+		projectDao.removeProject(project);
 	}
 
 }

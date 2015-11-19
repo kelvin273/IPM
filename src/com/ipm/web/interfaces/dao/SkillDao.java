@@ -1,4 +1,4 @@
-package com.ipm.web.interfaces;
+package com.ipm.web.interfaces.dao;
 
 import java.util.List;
 
@@ -11,4 +11,6 @@ public interface SkillDao {
 	public void createSkill(Skill skill);
 	
 	public void removeSkill(Skill skill);
+	
+	public void updateSkill(Skill skill);
 }

@@ -1,4 +1,4 @@
-package com.ipm.web.impl;
+package com.ipm.web.impl.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import com.ipm.web.dto.Plan;
-import com.ipm.web.interfaces.PlanDao;
+import com.ipm.web.interfaces.dao.PlanDao;
 
 public class JdbcPlanDao implements PlanDao {
 

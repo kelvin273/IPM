@@ -13,6 +13,7 @@ import com.ipm.web.dto.Skill;
 
 public class ResourceForm implements Serializable {
 
+	private long id;
 	@NotNull
 	@Min(value = 1)
 	private float salary;
@@ -55,6 +56,14 @@ public class ResourceForm implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

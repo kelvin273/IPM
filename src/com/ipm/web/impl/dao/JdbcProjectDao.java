@@ -1,4 +1,4 @@
-package com.ipm.web.impl;
+package com.ipm.web.impl.dao;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.ipm.web.dto.Project;
 import com.ipm.web.impl.mappers.ProjectMapper;
-import com.ipm.web.interfaces.ProjectDao;
+import com.ipm.web.interfaces.dao.ProjectDao;
 
 public class JdbcProjectDao implements ProjectDao {
 
@@ -38,6 +38,19 @@ public class JdbcProjectDao implements ProjectDao {
 	public void createProject(Project project) {
 		jdbcTemplate.update("INSERT INTO projects(name, username) values(?,?)",
 				project.getName(), project.getUsername());
+	}
+
+	@Override
+	public void updateProject(Project project) {
+		jdbcTemplate.update("UPDATE projects set name=? WHERE id=? and username=?",
+				project.getName(), project.getId(), project.getUsername());
+		
+	}
+	
+	@Override
+	public void removeProject(Project project) {
+		jdbcTemplate.update("DELETE from projects WHERE id=? and username=?",
+				project.getId(), project.getUsername());
 	}
 
 }

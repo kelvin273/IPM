@@ -13,4 +13,6 @@ public interface ResourceManager {
     public void createResource(Resource resource);
 
 	public void removeResource(Resource resource);
+	
+	public void updateResource(Resource resource);
 }

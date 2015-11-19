@@ -1,4 +1,4 @@
-package com.ipm.web.impl;
+package com.ipm.web.impl.manager;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ipm.web.dto.Skill;
-import com.ipm.web.interfaces.SkillDao;
 import com.ipm.web.interfaces.SkillManager;
+import com.ipm.web.interfaces.dao.SkillDao;
 
 public class SkillManagerImpl implements SkillManager {
 	/** Logger for this class and subclasses */
@@ -23,6 +23,12 @@ public class SkillManagerImpl implements SkillManager {
 	@Override
 	public void createSkill(Skill skill) {
 		skillDao.createSkill(skill);
+
+	}
+	
+	@Override
+	public void updateSkill(Skill skill) {
+		skillDao.updateSkill(skill);
 
 	}
 

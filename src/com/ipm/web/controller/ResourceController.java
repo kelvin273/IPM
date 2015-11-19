@@ -84,29 +84,31 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 		int projectId = Integer.valueOf((String) request.getSession()
 				.getAttribute("projectId"));
 		model.addObject("skills", skillManager.getSkills(username, projectId));
-		if (result.hasErrors()) {
-			model.setViewName("resources/newResource");
-			return model;
-		}
+		model.setViewName("resources/newResource");
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			Resource s = new Resource();
-			s.setName(resource.getName());
-			s.setUsername(username);
-			s.setProjectId(Integer.valueOf((String) request.getSession()
+			Resource resourceToBeCreated = new Resource();
+			resourceToBeCreated.setName(resource.getName());
+			resourceToBeCreated.setUsername(username);
+			resourceToBeCreated.setProjectId(Integer.valueOf((String) request.getSession()
 					.getAttribute("projectId")));
-			s.setMaxDedication(resource.getMaxDedication());
-			s.setCost(resource.getSalary());
+			resourceToBeCreated.setMaxDedication(resource.getMaxDedication());
+			resourceToBeCreated.setCost(resource.getSalary());
 			List<Skill> skillList = new ArrayList<Skill>();
 			for (String id : resource.getSkills()) {
 				Skill skill = new Skill();
 				skill.setId(Long.valueOf(id));
 				skillList.add(skill);
 			}
-			s.setSkills(skillList);
-			resourceManager.createResource(s);
-			model.setViewName("resources/resources");
-			model.addObject("resources",
-					resourceManager.getResources(username, projectId));
+			resourceToBeCreated.setSkills(skillList);
+			resourceToBeCreated.setId(resource.getId());
+			if(0==resourceToBeCreated.getId()){
+			resourceManager.createResource(resourceToBeCreated);
+			}else{
+				resourceManager.updateResource(resourceToBeCreated);
+			}
+			if (!result.hasErrors()) {
+				model.addObject("success", true);
+			}
 		}
 		return model;
 	}

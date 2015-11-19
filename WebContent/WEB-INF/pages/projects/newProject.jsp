@@ -10,7 +10,12 @@
 	<form:form method="POST" modelAttribute="project" commandName="project"
 		class="form-horizontal">
 		<fieldset>
-			<legend>New Project</legend>
+			<legend>Project</legend>
+			<c:if test="${success}">
+				<div class="alert alert-dismissible alert-success">
+					<strong>Project updated!</strong>
+				</div>
+			</c:if>
 			<c:set var="errors">
 				<form:errors path="name" cssclass="error" />
 			</c:set>

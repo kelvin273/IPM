@@ -12,7 +12,12 @@
 	<form:form method="POST" modelAttribute="task"
 		commandName="task" class="form-horizontal">
 		<fieldset>
-			<legend>New Task</legend>
+			<legend>Task</legend>
+			<c:if test="${success}">
+				<div class="alert alert-dismissible alert-success">
+					<strong>Task updated!</strong>
+				</div>
+			</c:if>
 			<c:set var="errors">
 				<form:errors path="name" cssclass="error" />
 			</c:set>
