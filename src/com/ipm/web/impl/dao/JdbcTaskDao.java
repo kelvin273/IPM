@@ -77,24 +77,38 @@ public class JdbcTaskDao implements TaskDao {
 
 		Long taskId = holder.getKey().longValue();
 
-		for (Skill skill : task.getRequiredSkills()) {
-			jdbcTemplate.update(
-					"INSERT INTO skillTasks(skillId, taskId) values(?,?)",
-					skill.getId(), taskId);
-		}
+		task.setId(taskId);
 
-		for (Resource resource : task.getResources()) {
-			jdbcTemplate
-					.update("INSERT INTO resourceTasks(resourceId, taskId) values(?,?)",
-							resource.getId(), taskId);
-		}
+		createTaskSkills(task, taskId);
 
+		createTaskResources(task, taskId);
+
+		createPrecedentTasks(task, taskId);
+
+	}
+
+	private void createPrecedentTasks(final Task task, Long taskId) {
 		for (Task taskAux : task.getPrecedentTasks()) {
 			jdbcTemplate
 					.update("INSERT INTO dependentTasks(taskId, dependentTaskId) values(?,?)",
 							taskId, taskAux.getId());
 		}
+	}
 
+	private void createTaskResources(final Task task, Long taskId) {
+		for (Resource resource : task.getResources()) {
+			jdbcTemplate
+					.update("INSERT INTO resourceTasks(resourceId, taskId) values(?,?)",
+							resource.getId(), taskId);
+		}
+	}
+
+	private void createTaskSkills(final Task task, Long taskId) {
+		for (Skill skill : task.getRequiredSkills()) {
+			jdbcTemplate.update(
+					"INSERT INTO skillTasks(skillId, taskId) values(?,?)",
+					skill.getId(), taskId);
+		}
 	}
 
 	@Override
@@ -114,8 +128,23 @@ public class JdbcTaskDao implements TaskDao {
 
 	@Override
 	public void updateTask(Task task) {
-		// TODO Auto-generated method stub
-		
+		jdbcTemplate
+				.update("UPDATE tasks set name=?, effort=?, exclusive=? WHERE id=? and projectId IN (SELECT p.id from projects p, users u where u.username=p.username and p.id = ? and u.username=? )",
+						task.getName(), task.getEffort(), task.isExclusive(),
+						task.getId(), task.getProjectId(), task.getUsername());
+
+		jdbcTemplate.update("DELETE from dependentTasks where taskId=? ",
+				task.getId());
+		createPrecedentTasks(task, task.getId());
+
+		jdbcTemplate.update("DELETE from resourceTasks where taskId=? ",
+				task.getId());
+		createTaskResources(task, task.getId());
+
+		jdbcTemplate.update("DELETE from skillTasks where taskId=? ",
+				task.getId());
+		createTaskSkills(task, task.getId());
+
 	}
 
 }

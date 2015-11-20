@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.ipm.web.dto.Project;
-import com.ipm.web.dto.Task;
 import com.ipm.web.form.ProjectForm;
 import com.ipm.web.interfaces.ProjectManager;
 
@@ -47,10 +46,7 @@ public class ProjectController extends WebMvcConfigurerAdapter {
 			@Valid @ModelAttribute("project") ProjectForm project,
 			BindingResult result) {
 		ModelAndView model = new ModelAndView();
-		if (result.hasErrors()) {
 			model.setViewName("projects/newProject");
-			return model;
-		}
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
@@ -64,7 +60,7 @@ public class ProjectController extends WebMvcConfigurerAdapter {
 			} else {
 				projectManager.updateProject(p);
 			}
-			model.setViewName("projects/newProject");
+			project.setId(p.getId());
 			if (!result.hasErrors()) {
 				model.addObject("success", true);
 			}

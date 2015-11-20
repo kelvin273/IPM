@@ -106,6 +106,7 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 			}else{
 				resourceManager.updateResource(resourceToBeCreated);
 			}
+			resource.setId(resourceToBeCreated.getId());
 			if (!result.hasErrors()) {
 				model.addObject("success", true);
 			}

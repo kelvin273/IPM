@@ -1,5 +1,9 @@
 package com.ipm.web.impl.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -7,6 +11,9 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import com.ipm.web.dto.Skill;
 import com.ipm.web.impl.mappers.SkillMapper;
@@ -37,9 +44,29 @@ public class JdbcSkillDao implements SkillDao {
 	}
 
 	@Override
-	public void createSkill(Skill skill) {
-		jdbcTemplate.update("INSERT INTO skills(name, projectId) values(?,?)",
-				skill.getName(), skill.getProjectId());
+	public void createSkill(final Skill skill) {
+		
+		KeyHolder holder = new GeneratedKeyHolder();
+
+		jdbcTemplate.update(new PreparedStatementCreator() {
+
+			@Override
+			public PreparedStatement createPreparedStatement(
+					Connection connection) throws SQLException {
+				PreparedStatement ps = connection
+						.prepareStatement(
+								"INSERT INTO skills(name, projectId) values(?,?)",
+								Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, skill.getName());
+				ps.setFloat(2, skill.getProjectId());
+				return ps;
+			}
+		}, holder);
+
+		Long id = holder.getKey().longValue();
+		
+		skill.setId(id);
+		
 	}
 
 	@Override

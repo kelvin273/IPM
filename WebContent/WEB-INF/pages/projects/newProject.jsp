@@ -25,6 +25,7 @@
 					<strong><form:errors path="name" cssclass="error" /></strong>
 				</div>
 			</c:if>
+			<form:hidden path="id" />
 			<div class="form-group">
 				<form:label path="name" class="col-lg-2 control-label">Project Name</form:label>
 				<div class="col-lg-10">

@@ -64,12 +64,16 @@ public class JdbcResourceDao implements ResourceDao {
 		}, holder);
 
 		Long resourceId = holder.getKey().longValue();
+		resource.setId(resourceId);
+		saveResourceSkills(resource, resourceId);
 
+	}
+
+	private void saveResourceSkills(final Resource resource, Long resourceId) {
 		for (Skill skill : resource.getSkills()) {
 			jdbcTemplate.update("INSERT INTO skillResources(resourceId, skillId) values(?,?)", resourceId,
 					skill.getId());
 		}
-
 	}
 
 	@Override
@@ -89,7 +93,12 @@ public class JdbcResourceDao implements ResourceDao {
 
 	@Override
 	public void updateResource(Resource resource) {
-		// TODO Auto-generated method stub
+		jdbcTemplate.update(
+				"UPDATE resources set name=?, salary=?, maxDedication=? WHERE id=? and projectId IN (SELECT p.id from projects p, users u where u.username=p.username and p.id = ? and u.username=? )",
+				resource.getName(), resource.getCost(), resource.getMaxDedication(), resource.getId(), resource.getProjectId(), resource.getUsername());
+		
+		jdbcTemplate.update("DELETE FROM skillResources where resourceId=?", resource.getId());
+		saveResourceSkills(resource, resource.getId());
 		
 	}
 

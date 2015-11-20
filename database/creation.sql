@@ -26,7 +26,7 @@ CREATE TABLE projects (
   name varchar(255) NOT NULL,
   username varchar(45) NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT fk_username_project FOREIGN KEY (username) REFERENCES users (username));
+  CONSTRAINT fk_username_project FOREIGN KEY (username) REFERENCES users (username) ON DELETE CASCADE);
   
 INSERT INTO projects (name, username) VALUES ('P1', 'alex');
   
@@ -35,7 +35,7 @@ CREATE TABLE skills (
   name varchar(255) NOT NULL,
   projectId INTEGER,
   PRIMARY KEY (id),
-  CONSTRAINT fk_skillls_projectId FOREIGN KEY (projectId) REFERENCES projects (id));
+  CONSTRAINT fk_skillls_projectId FOREIGN KEY (projectId) REFERENCES projects (id) ON DELETE CASCADE);
   
 INSERT INTO skills (name, projectId) VALUES ('S1', 1);
 INSERT INTO skills (name, projectId) VALUES ('S2', 1);
@@ -48,7 +48,7 @@ CREATE TABLE resources (
   maxDedication FLOAT, 
   projectId INTEGER,
   PRIMARY KEY (id),
-  CONSTRAINT fk_resources_projectId FOREIGN KEY (projectId) REFERENCES projects (id));  
+  CONSTRAINT fk_resources_projectId FOREIGN KEY (projectId) REFERENCES projects (id) ON DELETE CASCADE);  
   
 INSERT INTO resources (name, salary,maxDedication,projectId) VALUES ('R1', 10,1,1);
 INSERT INTO resources (name, salary,maxDedication,projectId) VALUES ('R2', 10,1,1);
@@ -58,8 +58,8 @@ CREATE TABLE skillResources (
   resourceId INTEGER NOT NULL,
   skillId INTEGER NOT NULL,
   PRIMARY KEY (resourceId, skillId),
-  CONSTRAINT fk_skillResources_resources FOREIGN KEY (resourceId) REFERENCES resources (id),
-  CONSTRAINT fk_skillResources_skill FOREIGN KEY (skillId) REFERENCES skills (id)
+  CONSTRAINT fk_skillResources_resources FOREIGN KEY (resourceId) REFERENCES resources (id) ON DELETE CASCADE,
+  CONSTRAINT fk_skillResources_skill FOREIGN KEY (skillId) REFERENCES skills (id) ON DELETE CASCADE
   ); 
   
 CREATE TABLE tasks (
@@ -69,28 +69,28 @@ CREATE TABLE tasks (
   exclusive boolean,
   projectId INTEGER,
   PRIMARY KEY (id),
-  CONSTRAINT fk_task_projectId FOREIGN KEY (projectId) REFERENCES projects (id));  
+  CONSTRAINT fk_task_projectId FOREIGN KEY (projectId) REFERENCES projects (id) ON DELETE CASCADE);  
   
 CREATE TABLE skillTasks (
   skillId INTEGER NOT NULL,
   taskId INTEGER NOT NULL,
   PRIMARY KEY (taskId, skillId),
-  CONSTRAINT fk_skillTask_skills FOREIGN KEY (skillId) REFERENCES skills (id),
-  CONSTRAINT fk_skillTasks_task FOREIGN KEY (taskId) REFERENCES tasks (id)
+  CONSTRAINT fk_skillTask_skills FOREIGN KEY (skillId) REFERENCES skills (id) ON DELETE CASCADE,
+  CONSTRAINT fk_skillTasks_task FOREIGN KEY (taskId) REFERENCES tasks (id) ON DELETE CASCADE
   ); 
   
 CREATE TABLE resourceTasks (
   resourceId INTEGER NOT NULL,
   taskId INTEGER NOT NULL,
   PRIMARY KEY (taskId, resourceId),
-  CONSTRAINT fk_resourceTasks_resource FOREIGN KEY (resourceId) REFERENCES resources (id),
-  CONSTRAINT fk_resourceTasks_tasks FOREIGN KEY (taskId) REFERENCES tasks (id)
+  CONSTRAINT fk_resourceTasks_resource FOREIGN KEY (resourceId) REFERENCES resources (id) ON DELETE CASCADE,
+  CONSTRAINT fk_resourceTasks_tasks FOREIGN KEY (taskId) REFERENCES tasks (id) ON DELETE CASCADE
   ); 
   
 CREATE TABLE dependentTasks (
   taskId INTEGER NOT NULL,
   dependentTaskId INTEGER NOT NULL,
   PRIMARY KEY (taskId, dependentTaskId),
-  CONSTRAINT fk_dependentTasks_dependentTask FOREIGN KEY (dependentTaskId) REFERENCES tasks (id),
-  CONSTRAINT fk_dependentTasks_task FOREIGN KEY (taskId) REFERENCES tasks (id)
+  CONSTRAINT fk_dependentTasks_dependentTask FOREIGN KEY (dependentTaskId) REFERENCES tasks (id) ON DELETE CASCADE,
+  CONSTRAINT fk_dependentTasks_task FOREIGN KEY (taskId) REFERENCES tasks (id) ON DELETE CASCADE
   ); 

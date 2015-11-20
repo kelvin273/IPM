@@ -8,9 +8,10 @@
 		<li class="active">New Resource</li>
 	</ul>
 	<%@include file="../common/menu.jsp"%>
-	<h1>${projectName} </h1>
+	<h1>${projectName}</h1>
 	<form:form method="POST" modelAttribute="resource"
 		commandName="resource" class="form-horizontal">
+		<form:hidden path="id" />
 		<fieldset>
 			<legend>Resource</legend>
 			<c:if test="${success}">
@@ -55,7 +56,7 @@
 			<div class="form-group">
 				<form:label path="skills" class="col-lg-2 control-label">skills</form:label>
 				<div class="col-lg-10">
-					<form:select multiple="true" path="skills" class="form-control" 
+					<form:select multiple="true" path="skills" class="form-control"
 						form-control="form-control">
 						<form:options items="${skills}" itemValue="id" itemLabel="name" />
 					</form:select>

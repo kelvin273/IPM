@@ -74,6 +74,7 @@ public class SkillController extends WebMvcConfigurerAdapter {
 			}else{
 				skillManager.updateSkill(s);
 			}
+			skill.setId(s.getId());
 			model.setViewName("skills/newSkill");
 			if (!result.hasErrors()) {
 				model.addObject("success", true);

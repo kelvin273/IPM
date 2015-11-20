@@ -11,6 +11,7 @@
 	<h1>${projectName}</h1>
 	<form:form method="POST" modelAttribute="task"
 		commandName="task" class="form-horizontal">
+		<form:hidden path="id" />
 		<fieldset>
 			<legend>Task</legend>
 			<c:if test="${success}">

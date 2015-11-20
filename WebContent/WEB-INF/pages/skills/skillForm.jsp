@@ -1,6 +1,7 @@
 <div class="form-group">
 		<form:form method="POST" modelAttribute="skill" commandName="skill"
 			class="form-horizontal">
+			<form:hidden path="id" />
 			<fieldset>
 				<legend>Skill</legend>
 				<c:if test="${success}">

@@ -129,6 +129,7 @@ public class TaskController extends WebMvcConfigurerAdapter {
 			if (!result.hasErrors()) {
 				model.addObject("success", true);
 			}
+			task.setId(taskToBeCreated.getId());
 		}
 		return model;
 	}

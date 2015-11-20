@@ -6,10 +6,10 @@
 		<li><a href="<c:url value="/projects/projects"/>">Projects</a></li>
 		<li class="active">Skills</li>
 	</ul>
+	<%@include file="../common/menu.jsp"%>
 	<h1>${projectName}</h1>
 	<h2>Skills</h2>
 
-	<%@include file="../common/menu.jsp"%>
 	<a href="/IPM/skills/newSkill">New Skill</a> <br />
 
 	<div class="bs-component">
@@ -18,7 +18,7 @@
 				<tr>
 					<th>#</th>
 					<th>Skill Name</th>
-					<th>Go to</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>

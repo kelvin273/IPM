@@ -1,6 +1,8 @@
 
 <%@include file="../common/header.jsp"%>
 
+
+
 <div class="container">
 	<ul class="breadcrumb">
 		<li><a href="<c:url value="/"/>">Home</a></li>
@@ -17,7 +19,7 @@
 				<tr>
 					<th>#</th>
 					<th>Project Name</th>
-					<th>Go to</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -87,8 +89,10 @@
 										<input id="projectId" name="projectId" type="hidden"
 											value="<c:out value="${proj.id}"/>" />
 										<input type="submit" value="Remove"
-											class="btn btn-danger btn-xs" />
+											class="btn btn-danger btn-xs" data-toggle="confirmation" data-original-title="" title=""/>
 									</form:form>
+									
+									<a title="" data-original-title="" class="btn btn-large btn-danger" data-toggle="confirmation">Click to toggle confirmation</a>
 								</div>
 							</div>
 						</td>
@@ -97,5 +101,8 @@
 			</tbody>
 		</table>
 	</div>
+	<a title="" data-original-title="" class="btn btn-large btn-danger" data-toggle="confirmation">Click to toggle confirmation</a>
 </div>
+
+<!-- http://mistic100.github.io/Bootstrap-Confirmation/  -->
 <%@include file="../common/footer.jsp"%>

@@ -19,7 +19,7 @@
 				<tr>
 					<th>#</th>
 					<th>Resource Name</th>
-					<th>Go to</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
