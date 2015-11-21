@@ -27,7 +27,7 @@
 		</plugins>
 	</build>
 	<properties>
-		<jdk.version>1.7</jdk.version>
+		<jdk.version>1.8</jdk.version>
 		<spring.version>4.1.7.RELEASE</spring.version>
 		<spring.security.version>3.2.3.RELEASE</spring.security.version>
 		<jstl.version>1.2</jstl.version>
@@ -39,7 +39,7 @@
 			<artifactId>com.adsf</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>C:\Users\antonio.dedios\ipm\IPM\WebContent\WEB-INF\lib\ipm.jar</systemPath>
+			<systemPath>C:\Users\kelvin\git\IPM\WebContent\WEB-INF\lib\ipm.jar</systemPath>
 		</dependency>
 
 		<!-- Spring 3 dependencies -->

@@ -38,7 +38,7 @@
         var tasks =  {
             data:[
              <%int i=1;
-             DecimalFormat df = new DecimalFormat("####0.00");
+             DecimalFormat df = new DecimalFormat("####0,00");
              %>
 			<c:forEach items="${plan.tasks.task}" var="task">  
 				<% TaskSolution taskSolution = (TaskSolution) pageContext.getAttribute("task");

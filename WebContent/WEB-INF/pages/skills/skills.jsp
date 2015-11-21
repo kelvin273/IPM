@@ -34,11 +34,11 @@
 						<td><c:out value="${s.name}" /></td>
 						<td>
 						<form:form method="POST"
-								action="/IPM/skills/removeSkill" style="height:4px">
+								action="/IPM/skills/removeSkill" style="height:4px" data-confirm="Are you sure?">
 								<input id="skillId" name="skillId" type="hidden"
 									value="<c:out value="${s.id}"/>" />
 								<input type="submit" value="Remove"
-									class="btn btn-danger btn-xs" />
+									class="btn btn-danger btn-xs" data-toggle="confirmation"/>
 							</form:form></td>
 					</tr>
 				</c:forEach>

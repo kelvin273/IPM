@@ -84,15 +84,13 @@
 								</div>
 								<div style="float: left">&nbsp;</div>
 								<div style="float: right">
-									<form:form method="POST" action="/IPM/projects/removeProject"
+									<form:form method="POST" action="/IPM/projects/removeProject" data-confirm="Are you sure?"
 										style="height:4px">
 										<input id="projectId" name="projectId" type="hidden"
 											value="<c:out value="${proj.id}"/>" />
 										<input type="submit" value="Remove"
-											class="btn btn-danger btn-xs" data-toggle="confirmation" data-original-title="" title=""/>
+											class="btn btn-danger btn-xs" data-toggle="confirmation"/>
 									</form:form>
-									
-									<a title="" data-original-title="" class="btn btn-large btn-danger" data-toggle="confirmation">Click to toggle confirmation</a>
 								</div>
 							</div>
 						</td>
@@ -101,8 +99,6 @@
 			</tbody>
 		</table>
 	</div>
-	<a title="" data-original-title="" class="btn btn-large btn-danger" data-toggle="confirmation">Click to toggle confirmation</a>
 </div>
 
-<!-- http://mistic100.github.io/Bootstrap-Confirmation/  -->
 <%@include file="../common/footer.jsp"%>

@@ -169,7 +169,7 @@ public class TaskController extends WebMvcConfigurerAdapter {
 			s.setProjectId(Integer.valueOf((String) request.getSession()
 					.getAttribute("projectId")));
 			taskManager.removeTask(s);
-			model.setViewName("tasks/newTask");
+			model.setViewName("tasks/tasks");
 			model.addObject("tasks", taskManager.getTasks(
 					username,
 					Integer.valueOf((String) request.getSession().getAttribute(
