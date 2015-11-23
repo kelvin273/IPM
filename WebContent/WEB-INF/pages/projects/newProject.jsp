@@ -7,7 +7,7 @@
 		<li class="active">New Project</li>
 	</ul>
 	<%@include file="../common/menu.jsp"%>
-	<form:form method="POST" modelAttribute="project" commandName="project"
+	<form:form method="POST" modelAttribute="project" commandName="project" action="/IPM/projects/newProject"
 		class="form-horizontal">
 		<fieldset>
 			<legend>Project</legend>

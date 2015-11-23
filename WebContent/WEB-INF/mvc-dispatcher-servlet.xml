@@ -30,7 +30,7 @@
 	<!-- Controllers -->
 	<bean class="com.ipm.web.controller.ContactController">
 	</bean>
-	
+
 	<bean class="com.ipm.web.controller.ProjectController">
 		<property name="projectManager" ref="ProjectManagerImpl" />
 	</bean>
@@ -43,13 +43,13 @@
 		<property name="resourceManager" ref="ResourceManagerImpl" />
 		<property name="skillManager" ref="SkillManagerImpl" />
 	</bean>
-	
+
 	<bean class="com.ipm.web.controller.TaskController">
 		<property name="taskManager" ref="TaskManagerImpl" />
 		<property name="skillManager" ref="SkillManagerImpl" />
 		<property name="resourceManager" ref="ResourceManagerImpl" />
 	</bean>
-	
+
 	<bean class="com.ipm.web.controller.PlanController">
 		<property name="planManager" ref="PlanManagerImpl" />
 		<property name="taskManager" ref="TaskManagerImpl" />
@@ -59,6 +59,12 @@
 	<bean class="com.ipm.web.controller.MainController" />
 
 	<!-- Managers -->
+	<bean id="WSManagerImpl" class="com.ipm.web.impl.manager.WSManagerImpl">
+		<property name="wsdlURL" value="http://ipm-gc.rhcloud.com/ws?wsdl"/>
+		<property name="qaName" value="http://impl.ws.ipm.adsf.com/" />
+		<property name="serviceName" value="PlanServiceImplService"/>
+	</bean>
+
 	<bean id="ProjectManagerImpl" class="com.ipm.web.impl.manager.ProjectManagerImpl">
 		<property name="projectDao" ref="projectDao" />
 	</bean>
@@ -70,13 +76,14 @@
 	<bean id="ResourceManagerImpl" class="com.ipm.web.impl.manager.ResourceManagerImpl">
 		<property name="resourceDao" ref="resourceDao" />
 	</bean>
-	
+
 	<bean id="TaskManagerImpl" class="com.ipm.web.impl.manager.TaskManagerImpl">
 		<property name="taskDao" ref="taskDao" />
 	</bean>
-	
+
 	<bean id="PlanManagerImpl" class="com.ipm.web.impl.manager.PlanManagerImpl">
 		<property name="planDao" ref="planDao" />
+		<property name="ws" ref="WSManagerImpl" />
 	</bean>
 
 	<!-- DAOs -->
@@ -94,15 +101,23 @@
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 	<bean id="taskDao" class="com.ipm.web.impl.dao.JdbcTaskDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 	<bean id="planDao" class="com.ipm.web.impl.dao.JdbcPlanDao"
 		init-method="init">
 		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="location">
+			<value>classpath:/com/ipm/web/properties/ws.properties</value>
+		</property>
 	</bean>
 
 </beans>

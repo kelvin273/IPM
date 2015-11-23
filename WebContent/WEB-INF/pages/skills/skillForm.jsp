@@ -1,5 +1,5 @@
 <div class="form-group">
-		<form:form method="POST" modelAttribute="skill" commandName="skill"
+		<form:form method="POST" modelAttribute="skill" commandName="skill" action="/IPM/skills/newSkill"
 			class="form-horizontal">
 			<form:hidden path="id" />
 			<fieldset>

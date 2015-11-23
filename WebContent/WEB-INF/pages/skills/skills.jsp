@@ -31,7 +31,13 @@
 					%>
 					<tr>
 						<td><c:out value="<%=i%>" /></td>
-						<td><c:out value="${s.name}" /></td>
+						<td><form:form method="POST"
+								action="/IPM/skills/updateSkill" style="height:4px">
+								<input id="skillId" name="skillId" type="hidden"
+									value="<c:out value="${s.id}"/>" />
+								<input type="submit" value="${s.name}"
+									class="btn btn-success btn-xs" />
+							</form:form></td>
 						<td>
 						<form:form method="POST"
 								action="/IPM/skills/removeSkill" style="height:4px" data-confirm="Are you sure?">

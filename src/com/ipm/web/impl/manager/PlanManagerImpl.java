@@ -16,17 +16,17 @@ public class PlanManagerImpl implements PlanManager {
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	private PlanDao resourceDao;
-	
-	private WSManager ws = new WSManagerImpl();
+
+	private WSManager ws;
 
 	@Override
 	public List<Plan> getPlans(String username, int projectId) {
-		return resourceDao.getPlans(username,projectId);
+		return resourceDao.getPlans(username, projectId);
 	}
 
 	@Override
 	public PlanWS createPlan(Plan plan) {
-//		resourceDao.createPlan(plan);
+		// resourceDao.createPlan(plan);
 		// Call the WS
 		return ws.getPlan(plan);
 
@@ -39,6 +39,12 @@ public class PlanManagerImpl implements PlanManager {
 	@Override
 	public void removePlan(Plan resource) {
 		this.resourceDao.removePlan(resource);
-		
+
 	}
+
+	public void setWs(WSManager ws) {
+		this.ws = ws;
+	}
+	
+
 }

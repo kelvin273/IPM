@@ -14,4 +14,6 @@ public interface SkillManager {
     
     public void updateSkill(Skill skill);
 
+	public void getSkill(Skill skill);
+
 }

@@ -39,7 +39,7 @@
 			<artifactId>com.adsf</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>C:\Users\kelvin\git\IPM\WebContent\WEB-INF\lib\ipm.jar</systemPath>
+			<systemPath>${basedir}\WebContent\WEB-INF\lib\ipm.jar</systemPath>
 		</dependency>
 
 		<!-- Spring 3 dependencies -->

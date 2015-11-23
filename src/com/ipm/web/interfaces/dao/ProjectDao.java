@@ -13,4 +13,6 @@ public interface ProjectDao {
 	public void updateProject(Project project);
 
 	public void removeProject(Project project);
+
+	public Project getProject(String projectId);
 }

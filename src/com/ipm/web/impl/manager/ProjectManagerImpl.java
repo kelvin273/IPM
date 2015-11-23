@@ -40,4 +40,9 @@ public class ProjectManagerImpl implements ProjectManager {
 		projectDao.removeProject(project);
 	}
 
+	@Override
+	public Project getProject(String projectId) {
+		return projectDao.getProject(projectId);
+	}
+
 }

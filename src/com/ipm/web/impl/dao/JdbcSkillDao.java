@@ -84,5 +84,13 @@ public class JdbcSkillDao implements SkillDao {
 		
 	}
 
+	@Override
+	public void getSkill(Skill skill) {
+		Skill skillAux =  jdbcTemplate
+				.query("select s.id, s.name, s.projectID, u.username from skills s, projects p, users u where s.projectId = ? and s.projectID=p.id and u.username = p.username and u.username = ?",
+						new SkillMapper(), skill.getProjectId(), skill.getUsername()).get(0);
+		skill.setName(skillAux.getName());
+	}
+
 
 }

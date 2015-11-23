@@ -17,7 +17,7 @@ public class SkillManagerImpl implements SkillManager {
 
 	@Override
 	public List<Skill> getSkills(String username, int projectId) {
-		return skillDao.getSkills(username,projectId);
+		return skillDao.getSkills(username, projectId);
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class SkillManagerImpl implements SkillManager {
 		skillDao.createSkill(skill);
 
 	}
-	
+
 	@Override
 	public void updateSkill(Skill skill) {
 		skillDao.updateSkill(skill);
@@ -39,7 +39,12 @@ public class SkillManagerImpl implements SkillManager {
 	@Override
 	public void removeSkill(Skill skill) {
 		this.skillDao.removeSkill(skill);
-		
+
+	}
+
+	@Override
+	public void getSkill(Skill skill) {
+		this.skillDao.getSkill(skill);
 	}
 
 }

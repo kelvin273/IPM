@@ -13,4 +13,6 @@ public interface SkillDao {
 	public void removeSkill(Skill skill);
 	
 	public void updateSkill(Skill skill);
+
+	public void getSkill(Skill skillId);
 }

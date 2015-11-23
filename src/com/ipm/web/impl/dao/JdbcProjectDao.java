@@ -76,4 +76,11 @@ public class JdbcProjectDao implements ProjectDao {
 				project.getId(), project.getUsername());
 	}
 
+	@Override
+	public Project getProject(String projectId) {
+		return jdbcTemplate.query(
+				"select id, name, username from projects where id=?",
+				new String[]{projectId}, new ProjectMapper()).get(0);
+	}
+
 }

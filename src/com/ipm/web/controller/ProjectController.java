@@ -76,6 +76,19 @@ public class ProjectController extends WebMvcConfigurerAdapter {
 		modelAux.setViewName("projects/newProject");
 		return modelAux;
 	}
+	
+	@RequestMapping(value = "/projects/updateProject", method = RequestMethod.POST)
+	public ModelAndView updateProject(HttpServletRequest request,
+			@RequestParam("projectId") String projectId) {
+		ModelAndView modelAux = new ModelAndView();
+		Project p = projectManager.getProject(projectId);
+		ProjectForm project = new ProjectForm();
+		project.setId(p.getId());
+		project.setName(p.getName());
+		modelAux.addObject("project", project);
+		modelAux.setViewName("projects/newProject");
+		return modelAux;
+	}
 
 	@RequestMapping(value = "/projects/removeProject", method = RequestMethod.POST)
 	public ModelAndView removeProject(HttpServletRequest request,

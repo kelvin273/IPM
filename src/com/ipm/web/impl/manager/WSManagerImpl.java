@@ -8,6 +8,8 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 import javax.xml.ws.handler.Handler;
 
+import org.springframework.context.annotation.Configuration;
+
 import com.adsf.ipm.ws.PlanService;
 import com.adsf.ipm.ws.dto.PlanWS;
 import com.adsf.ipm.ws.dto.PrecedentTaskWS;
@@ -22,20 +24,26 @@ import com.ipm.web.dto.Task;
 import com.ipm.web.impl.MyServiceLogHandler;
 import com.ipm.web.interfaces.WSManager;
 
+@Configuration
 public class WSManagerImpl implements WSManager {
+
+	private String wsdlURL;
+	private String qaName;
+	private String serviceName;
 
 	@Override
 	public PlanWS getPlan(Plan plan) {
 		PlanWS planWS = new PlanWS();
 		try {
-			URL url = new URL("http://ipm-gc.rhcloud.com/ws?wsdl");
-//			URL url = new URL("http://localhost:8888/ts?wsdl");
-			QName qname = new QName("http://impl.ws.ipm.adsf.com/", "PlanServiceImplService");
+			URL url = new URL(wsdlURL);
+			// URL url = new URL("http://localhost:8888/ts?wsdl");
+			QName qname = new QName(qaName, serviceName);
 			Service planService = Service.create(url, qname);
 			PlanService service = planService.getPort(PlanService.class);
 
 			BindingProvider bindProv = (BindingProvider) service;
-			java.util.List<Handler> handlers = bindProv.getBinding().getHandlerChain();
+			java.util.List<Handler> handlers = bindProv.getBinding()
+					.getHandlerChain();
 			handlers.add(new MyServiceLogHandler());
 			bindProv.getBinding().setHandlerChain(handlers);
 
@@ -61,12 +69,14 @@ public class WSManagerImpl implements WSManager {
 		ResourcesWS resources = new ResourcesWS();
 		resources.setResource(new ArrayList<ResourceWS>());
 		for (Resource resource : plan.getResources()) {
-			addResource(resources, resource.getName(), resource.getMaxDedication(), resource.getCost());
+			addResource(resources, resource.getName(),
+					resource.getMaxDedication(), resource.getCost());
 		}
 		return resources;
 	}
 
-	protected void addResource(ResourcesWS resources, String id, float maxDedication, float salary) {
+	protected void addResource(ResourcesWS resources, String id,
+			float maxDedication, float salary) {
 		ResourceWS r1 = new ResourceWS();
 		r1.setId(id);
 		r1.setMaxDedication(maxDedication);
@@ -80,7 +90,8 @@ public class WSManagerImpl implements WSManager {
 		t1.setId(task.getName());
 		t1.setExclusive(task.isExclusive());
 		t1.setPrecedentTasks(new PrecedentTasksWS());
-		t1.getPrecedentTasksWS().setPrecedentTasksWS(new ArrayList<PrecedentTaskWS>());
+		t1.getPrecedentTasksWS().setPrecedentTasksWS(
+				new ArrayList<PrecedentTaskWS>());
 		if (null != task.getPrecedentTasks()) {
 			for (Task t : task.getPrecedentTasks()) {
 				PrecedentTaskWS pt = new PrecedentTaskWS();
@@ -89,6 +100,18 @@ public class WSManagerImpl implements WSManager {
 			}
 		}
 		tasks.getTasks().add(t1);
+	}
+
+	public void setWsdlURL(String wsdlURL) {
+		this.wsdlURL = wsdlURL;
+	}
+
+	public void setQaName(String qaName) {
+		this.qaName = qaName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
 	}
 
 }

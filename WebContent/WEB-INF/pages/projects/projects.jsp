@@ -32,7 +32,13 @@
 					%>
 					<tr>
 						<td><c:out value="<%=i%>" /></td>
-						<td><c:out value="${proj.name}" /></td>
+						<td><form:form method="POST"
+								action="/IPM/projects/updateProject" style="height:4px">
+								<input id="projectId" name="projectId" type="hidden"
+									value="<c:out value="${proj.id}"/>" />
+								<input type="submit" value="${proj.name}"
+									class="btn btn-success btn-xs" />
+							</form:form></td>
 						<td>
 							<div style="overflow: hidden">
 								<div style="float: left">
@@ -84,12 +90,12 @@
 								</div>
 								<div style="float: left">&nbsp;</div>
 								<div style="float: right">
-									<form:form method="POST" action="/IPM/projects/removeProject" data-confirm="Are you sure?"
-										style="height:4px">
+									<form:form method="POST" action="/IPM/projects/removeProject"
+										data-confirm="Are you sure?" style="height:4px">
 										<input id="projectId" name="projectId" type="hidden"
 											value="<c:out value="${proj.id}"/>" />
 										<input type="submit" value="Remove"
-											class="btn btn-danger btn-xs" data-toggle="confirmation"/>
+											class="btn btn-danger btn-xs" data-toggle="confirmation" />
 									</form:form>
 								</div>
 							</div>
