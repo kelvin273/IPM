@@ -32,7 +32,13 @@
 					%>
 					<tr>
 						<td><c:out value="<%=i%>" /></td>
-						<td><c:out value="${r.name}" /></td>
+						<td><form:form method="POST"
+								action="/IPM/resources/updateResource" style="height:4px">
+								<input id="resourceId" name="resourceId" type="hidden"
+									value="<c:out value="${r.id}"/>" />
+								<input type="submit" value="${r.name}"
+									class="btn btn-success btn-xs" />
+							</form:form></td>
 						<td><form:form method="POST"
 								action="/IPM/resources/removeResource" style="height:4px" data-confirm="Are you sure?">
 								<input id="resourceId" name="resourceId" type="hidden"

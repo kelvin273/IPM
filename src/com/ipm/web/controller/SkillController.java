@@ -98,7 +98,7 @@ public class SkillController extends WebMvcConfigurerAdapter {
 	}
 
 	@RequestMapping(value = "/skills/updateSkill", method = RequestMethod.POST)
-	public ModelAndView updateProject(HttpServletRequest request,
+	public ModelAndView updateSkill(HttpServletRequest request,
 			@RequestParam("skillId") String skillId) {
 		ModelAndView modelAux = new ModelAndView();
 		modelAux.setViewName("skills/newSkill");

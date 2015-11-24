@@ -89,8 +89,8 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 			Resource resourceToBeCreated = new Resource();
 			resourceToBeCreated.setName(resource.getName());
 			resourceToBeCreated.setUsername(username);
-			resourceToBeCreated.setProjectId(Integer.valueOf((String) request.getSession()
-					.getAttribute("projectId")));
+			resourceToBeCreated.setProjectId(Integer.valueOf((String) request
+					.getSession().getAttribute("projectId")));
 			resourceToBeCreated.setMaxDedication(resource.getMaxDedication());
 			resourceToBeCreated.setCost(resource.getSalary());
 			List<Skill> skillList = new ArrayList<Skill>();
@@ -101,9 +101,9 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 			}
 			resourceToBeCreated.setSkills(skillList);
 			resourceToBeCreated.setId(resource.getId());
-			if(0==resourceToBeCreated.getId()){
-			resourceManager.createResource(resourceToBeCreated);
-			}else{
+			if (0 == resourceToBeCreated.getId()) {
+				resourceManager.createResource(resourceToBeCreated);
+			} else {
 				resourceManager.updateResource(resourceToBeCreated);
 			}
 			resource.setId(resourceToBeCreated.getId());
@@ -112,6 +112,44 @@ public class ResourceController extends WebMvcConfigurerAdapter {
 			}
 		}
 		return model;
+	}
+
+	@RequestMapping(value = "/resources/updateResource", method = RequestMethod.POST)
+	public ModelAndView updateResource(HttpServletRequest request,
+			@RequestParam("resourceId") String resourceId) {
+		ModelAndView modelAux = new ModelAndView();
+		modelAux.setViewName("resources/newResource");
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			String username = ((UserDetails) auth.getPrincipal()).getUsername();
+			Resource r = new Resource();
+			r.setId(Long.valueOf(resourceId));
+			r.setProjectId(Integer.valueOf((String) request.getSession()
+					.getAttribute("projectId")));
+			r.setUsername(username);
+			resourceManager.getResource(r);
+			ResourceForm resource = new ResourceForm();
+			resource.setId(r.getId());
+			resource.setName(r.getName());
+			resource.setMaxDedication(r.getMaxDedication());
+			resource.setSalary(r.getCost());
+			List<Skill> skills = r.getSkills();
+			if (null != skills) {
+				String[] skillArray = new String[skills.size()];
+				int i = 0;
+				for (Skill skill : skills) {
+					skillArray[i] = String.valueOf(skill.getId());
+					i++;
+				}
+				resource.setSkills(skillArray);
+			}
+			modelAux.addObject("skills",
+					skillManager.getSkills(username, r.getProjectId()));
+			modelAux.addObject("resource", resource);
+		}
+		return modelAux;
+
 	}
 
 	@RequestMapping(value = "/resources/removeResource", method = RequestMethod.POST)

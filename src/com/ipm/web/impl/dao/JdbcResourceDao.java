@@ -18,6 +18,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import com.ipm.web.dto.Resource;
 import com.ipm.web.dto.Skill;
 import com.ipm.web.impl.mappers.ResourceMapper;
+import com.ipm.web.impl.mappers.SkillMapper;
 import com.ipm.web.interfaces.dao.ResourceDao;
 
 public class JdbcResourceDao implements ResourceDao {
@@ -37,7 +38,7 @@ public class JdbcResourceDao implements ResourceDao {
 	}
 
 	@Override
-	public List<Resource> getResources(String username, int projectId) {
+	public List<Resource> getResources(String username, long projectId) {
 		List<Resource> resources = jdbcTemplate.query(
 				"select r.id, r.name, r.projectId, r.salary, u.username, r.maxDedication from resources r, projects p, users u where r.projectId = ? and r.projectID=p.id and u.username = p.username and u.username = ?",
 				new ResourceMapper(), projectId, username);
@@ -84,11 +85,19 @@ public class JdbcResourceDao implements ResourceDao {
 	}
 
 	@Override
-	public Resource getResource(String username, int projectId, int resourceId) {
+	public void getResource(Resource resource) {
 		List<Resource> resources = jdbcTemplate.query(
 				"select r.id, r.name, r.projectId, r.salary, u.username, r.maxDedication from resources r, projects p, users u where r.projectId = ? and r.projectID=p.id and u.username = p.username and u.username = ? and r.id = ?",
-				new ResourceMapper(), projectId, username,resourceId);
-		return resources.get(0);
+				new ResourceMapper(), resource.getProjectId(), resource.getUsername(), resource.getId());
+		resource.setName(resources.get(0).getName());
+		resource.setCost(resources.get(0).getCost());
+		resource.setMaxDedication(resources.get(0).getMaxDedication());
+		//gets the associated skills
+		List<Skill> skills = jdbcTemplate
+				.query("select s.id, s.name, s.projectID, u.username from skills s, projects p, users u, skillResources sr where sr.skillId = s.id and sr.resourceId= ? and s.projectId = ? and s.projectID=p.id and u.username = p.username and u.username = ?",
+						new SkillMapper(), resource.getId(), resource.getProjectId(), resource.getUsername());
+		resource.setSkills(skills);
+		
 	}
 
 	@Override

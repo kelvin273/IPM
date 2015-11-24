@@ -16,7 +16,7 @@ public class SkillManagerImpl implements SkillManager {
 	private SkillDao skillDao;
 
 	@Override
-	public List<Skill> getSkills(String username, int projectId) {
+	public List<Skill> getSkills(String username, long projectId) {
 		return skillDao.getSkills(username, projectId);
 	}
 

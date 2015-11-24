@@ -22,7 +22,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.ipm.web.dto.Plan;
 import com.ipm.web.dto.Resource;
-import com.ipm.web.dto.Skill;
 import com.ipm.web.dto.Task;
 import com.ipm.web.form.PlanForm;
 import com.ipm.web.interfaces.PlanManager;
@@ -94,7 +93,13 @@ public class PlanController extends WebMvcConfigurerAdapter {
 			
 			List<Resource> resourceList = new ArrayList<Resource>();
 			for (String id : plan.getResources()) {
-				resourceList.add(resourceManager.getResource(username, projectId, Integer.valueOf(id)));
+				Resource r = new Resource();
+				r.setUsername(username);
+				r.setProjectId(projectId);
+				r.setId(Long.valueOf(id));
+				// Load the resource information
+				resourceManager.getResource(r);
+				resourceList.add(r);
 			}
 			p.setResources(resourceList);
 			

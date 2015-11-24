@@ -6,7 +6,7 @@ import com.ipm.web.dto.Resource;
 
 public interface ResourceDao {
 
-	public List<Resource> getResources(String username, int projectId);
+	public List<Resource> getResources(String username, long projectId);
 
 	public void createResource(Resource resource);
 
@@ -14,5 +14,5 @@ public interface ResourceDao {
 	
 	public void updateResource(Resource resource);
 
-	public Resource getResource(String username, int projectId, int resourceId);
+	public void getResource(Resource resource);
 }

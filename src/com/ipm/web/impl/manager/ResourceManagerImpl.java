@@ -43,7 +43,8 @@ public class ResourceManagerImpl implements ResourceManager {
 	}
 
 	@Override
-	public Resource getResource(String username, int projectId, int resourceId) {
-		return this.resourceDao.getResource( username,  projectId,  resourceId);
+	public void getResource(Resource r) {
+		this.resourceDao.getResource(r);
 	}
+
 }
