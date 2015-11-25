@@ -16,7 +16,7 @@ public class TaskManagerImpl implements TaskManager {
 	private TaskDao taskDao;
 
 	@Override
-	public List<Task> getTasks(String username, int projectId) {
+	public List<Task> getTasks(String username, long projectId) {
 		return taskDao.getTasks(username, projectId);
 	}
 
@@ -25,7 +25,7 @@ public class TaskManagerImpl implements TaskManager {
 		taskDao.createTask(task);
 
 	}
-	
+
 	@Override
 	public void updateTask(Task task) {
 		taskDao.updateTask(task);
@@ -42,11 +42,11 @@ public class TaskManagerImpl implements TaskManager {
 	}
 
 	@Override
-	public Task getTask(String username, int projectId, int taskId) {
-		Task task = taskDao.getTask(username, projectId, taskId);
-		List<Task> precedentTasks = taskDao.getPrecedentTasks(taskId);
-		task.setPrecedentTasks(precedentTasks);
-		return task;
+	public void getTask(Task t) {
+		taskDao.getTask(t);
+		t.setPrecedentTasks(taskDao.getPrecedentTasks(t.getId()));
+		t.setRequiredSkills(taskDao.getRequiredSkills(t.getId()));
+		t.setResources(taskDao.getResources(t.getId()));
 	}
 
 }

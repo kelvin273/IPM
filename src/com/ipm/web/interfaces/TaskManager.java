@@ -6,13 +6,13 @@ import com.ipm.web.dto.Task;
 
 public interface TaskManager {
 
-    public List<Task> getTasks(String username, int projectId);
-    
-    public Task getTask(String username, int projectId, int taskId);
+    public List<Task> getTasks(String username, long projectId);
     
     public void createTask(Task task);
 
 	public void removeTask(Task task);
 	
 	public void updateTask(Task task);
+
+	public void getTask(Task t);
 }

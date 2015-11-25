@@ -9,7 +9,7 @@
 	</ul>
 	<%@include file="../common/menu.jsp"%>
 	<h1>${projectName}</h1>
-	<form:form method="POST" modelAttribute="task"
+	<form:form method="POST" modelAttribute="task" action="/IPM/tasks/newTask"
 		commandName="task" class="form-horizontal">
 		<form:hidden path="id" />
 		<fieldset>

@@ -2,11 +2,13 @@ package com.ipm.web.interfaces.dao;
 
 import java.util.List;
 
+import com.ipm.web.dto.Resource;
+import com.ipm.web.dto.Skill;
 import com.ipm.web.dto.Task;
 
 public interface TaskDao {
 
-	public List<Task> getTasks(String username, int projectId);
+	public List<Task> getTasks(String username, long projectId);
 
 	public void createTask(Task task);
 
@@ -14,7 +16,13 @@ public interface TaskDao {
 	
 	public void updateTask(Task task);
 
-	public Task getTask(String username, int projectId, int taskId);
+	public List<Task> getPrecedentTasks(long taskId);
 	
-	public List<Task> getPrecedentTasks(int taskId);
+	public List<Skill> getRequiredSkills(long taskId);
+	
+	public List<Resource> getResources(long taskId);
+
+	public void getTask(Task t);
+
+	
 }

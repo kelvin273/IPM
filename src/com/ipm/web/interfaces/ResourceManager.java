@@ -6,7 +6,7 @@ import com.ipm.web.dto.Resource;
 
 public interface ResourceManager {
 
-    public List<Resource> getResources(String username, int projectId);
+    public List<Resource> getResources(String username, long projectId);
     
     public void createResource(Resource resource);
 

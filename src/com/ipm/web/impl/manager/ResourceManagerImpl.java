@@ -16,7 +16,7 @@ public class ResourceManagerImpl implements ResourceManager {
 	private ResourceDao resourceDao;
 
 	@Override
-	public List<Resource> getResources(String username, int projectId) {
+	public List<Resource> getResources(String username, long projectId) {
 		return resourceDao.getResources(username,projectId);
 	}
 

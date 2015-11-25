@@ -87,7 +87,13 @@ public class PlanController extends WebMvcConfigurerAdapter {
 			p.setProjectId(Integer.valueOf((String) request.getSession().getAttribute("projectId")));
 			List<Task> taskList = new ArrayList<Task>();
 			for (String id : plan.getTasks()) {
-				taskList.add(taskManager.getTask(username, projectId, Integer.valueOf(id)));
+				Task t= new Task();
+				t.setUsername(username);
+				t.setProjectId(projectId);
+				t.setId(Long.valueOf(id));
+				// Fulfil t.
+				taskManager.getTask(t);
+				taskList.add(t);
 			}
 			p.setTasks(taskList);
 			

@@ -155,6 +155,83 @@ public class TaskController extends WebMvcConfigurerAdapter {
 		return modelAux;
 	}
 
+	@RequestMapping(value = "/tasks/updateTask", method = RequestMethod.POST)
+	public ModelAndView updateTask(HttpServletRequest request,
+			@RequestParam("taskId") String taskId) {
+		ModelAndView modelAux = new ModelAndView();
+		modelAux.setViewName("tasks/newTask");
+		long projectId = Long.valueOf((String) request.getSession()
+				.getAttribute("projectId"));
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			String username = ((UserDetails) auth.getPrincipal()).getUsername();
+			Task t = new Task();
+			t.setId(Long.valueOf(taskId));
+			t.setProjectId(projectId);
+			t.setUsername(username);
+			taskManager.getTask(t);
+			TaskForm task = new TaskForm();
+			task.setId(t.getId());
+			task.setName(t.getName());
+			task.setEffort(t.getEffort());
+			task.setExclusive(t.isExclusive());
+			// set precedent task, resources, skills
+			setSelectedSkills(t, task);
+			setPrecedentTasks(t, task);
+			setResources(t, task);
+			// adding the required objects for the JSPs
+			modelAux.addObject("task", task);
+			modelAux.addObject("skills",
+					skillManager.getSkills(username, projectId));
+			modelAux.addObject("resources",
+					resourceManager.getResources(username, projectId));
+			modelAux.addObject("precedentTasks",
+					taskManager.getTasks(username, projectId));
+		}
+		return modelAux;
+
+	}
+
+	private void setResources(Task t, TaskForm task) {
+		List<Resource> resources = t.getResources();
+		if (null != resources) {
+			String[] resourceArray = new String[resources.size()];
+			int i = 0;
+			for (Resource resource : resources) {
+				resourceArray[i] = String.valueOf(resource.getId());
+				i++;
+			}
+			task.setResources(resourceArray);
+		}
+	}
+
+	private void setSelectedSkills(Task t, TaskForm task) {
+		List<Skill> skills = t.getRequiredSkills();
+		if (null != skills) {
+			String[] skillArray = new String[skills.size()];
+			int i = 0;
+			for (Skill skill : skills) {
+				skillArray[i] = String.valueOf(skill.getId());
+				i++;
+			}
+			task.setRequiredSkills(skillArray);
+		}
+	}
+
+	private void setPrecedentTasks(Task t, TaskForm task) {
+		List<Task> tasks = t.getPrecedentTasks();
+		if (null != tasks) {
+			String[] precedentTasksArray = new String[tasks.size()];
+			int i = 0;
+			for (Task taskAux : tasks) {
+				precedentTasksArray[i] = String.valueOf(taskAux.getId());
+				i++;
+			}
+			task.setPrecedentTasks(precedentTasksArray);
+		}
+	}
+
 	@RequestMapping(value = "/tasks/removeTask", method = RequestMethod.POST)
 	public ModelAndView removeSkill(HttpServletRequest request,
 			@RequestParam("taskId") String taskId) {

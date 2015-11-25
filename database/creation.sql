@@ -130,3 +130,13 @@ INSERT INTO skillTasks (skillId, taskId) VALUES (5,4);
 INSERT INTO skillTasks (skillId, taskId) VALUES (2,5);
 INSERT INTO skillTasks (skillId, taskId) VALUES (4,6);
 INSERT INTO skillTasks (skillId, taskId) VALUES (1,7);
+
+INSERT INTO dependentTasks (taskId, dependentTaskId) VALUES (2,1);
+INSERT INTO dependentTasks (taskId, dependentTaskId) VALUES (3,1);
+INSERT INTO dependentTasks (taskId, dependentTaskId) VALUES (3,2);
+INSERT INTO dependentTasks (taskId, dependentTaskId) VALUES (4,1);
+INSERT INTO dependentTasks (taskId, dependentTaskId) VALUES (5,3);
+INSERT INTO dependentTasks (taskId, dependentTaskId) VALUES (6,2);
+INSERT INTO dependentTasks (taskId, dependentTaskId) VALUES (6,4);
+INSERT INTO dependentTasks (taskId, dependentTaskId) VALUES (7,4);
+INSERT INTO dependentTasks (taskId, dependentTaskId) VALUES (7,5);

@@ -19,6 +19,8 @@ import com.ipm.web.dto.Resource;
 import com.ipm.web.dto.Skill;
 import com.ipm.web.dto.Task;
 import com.ipm.web.impl.mappers.PrecedentTaskMapper;
+import com.ipm.web.impl.mappers.ResourceMapper;
+import com.ipm.web.impl.mappers.SkillMapper;
 import com.ipm.web.impl.mappers.TaskMapper;
 import com.ipm.web.interfaces.dao.TaskDao;
 
@@ -39,7 +41,7 @@ public class JdbcTaskDao implements TaskDao {
 	}
 
 	@Override
-	public List<Task> getTasks(String username, int projectId) {
+	public List<Task> getTasks(String username, long projectId) {
 		List<Task> tasks = jdbcTemplate
 				.query("select t.id, t.name, t.effort, t.exclusive, t.projectId, u.username from tasks t, projects p, users u where t.projectId = ? and t.projectID=p.id and u.username = p.username and u.username = ?",
 						new TaskMapper(), projectId, username);
@@ -47,7 +49,7 @@ public class JdbcTaskDao implements TaskDao {
 	}
 
 	@Override
-	public List<Task> getPrecedentTasks(int taskId) {
+	public List<Task> getPrecedentTasks(long taskId) {
 		return jdbcTemplate
 				.query("select t.id, t.name, t.effort, t.exclusive from tasks t, dependentTasks dt where t.id=dt.dependentTaskId and dt.taskId=?",
 						new PrecedentTaskMapper(), taskId);
@@ -119,14 +121,6 @@ public class JdbcTaskDao implements TaskDao {
 	}
 
 	@Override
-	public Task getTask(String username, int projectId, int taskId) {
-		List<Task> tasks = jdbcTemplate
-				.query("select t.id, t.name, t.effort, t.exclusive, t.projectId, u.username from tasks t, projects p, users u where t.projectId = ? and t.projectID=p.id and u.username = p.username and u.username = ? and t.id = ?",
-						new TaskMapper(), projectId, username, taskId);
-		return tasks.get(0);
-	}
-
-	@Override
 	public void updateTask(Task task) {
 		jdbcTemplate
 				.update("UPDATE tasks set name=?, effort=?, exclusive=? WHERE id=? and projectId IN (SELECT p.id from projects p, users u where u.username=p.username and p.id = ? and u.username=? )",
@@ -145,6 +139,33 @@ public class JdbcTaskDao implements TaskDao {
 				task.getId());
 		createTaskSkills(task, task.getId());
 
+	}
+
+	@Override
+	public void getTask(Task t) {
+		List<Task> tasks = jdbcTemplate
+				.query("select t.id, t.name, t.effort, t.exclusive, t.projectId, u.username from tasks t, projects p, users u where t.projectId = ? and t.projectID=p.id and u.username = p.username and u.username = ? and t.id = ?",
+						new TaskMapper(), t.getProjectId(), t.getUsername(),
+						t.getId());
+		Task task = tasks.get(0);
+		t.setEffort(task.getEffort());
+		t.setExclusive(task.isExclusive());
+		t.setName(task.getName());
+
+	}
+
+	@Override
+	public List<Skill> getRequiredSkills(long taskId) {
+		return jdbcTemplate
+				.query("select s.id, s.name, s.projectID, s.projectID, u.username from skills s, skilltasks st, users u, projects p where st.skillId=s.id and st.taskId=? and u.username = p.username and p.id = s.projectID",
+						new SkillMapper(), taskId);
+	}
+
+	@Override
+	public List<Resource> getResources(long taskId) {
+		return jdbcTemplate
+				.query("select r.id, r.name, r.projectId, r.salary, u.username, r.maxDedication from resources r, projects p, users u, resourceTasks rs where rs.taskId=? and rs.resourceId=r.id and r.projectID=p.id and u.username = p.username ",
+						new ResourceMapper(), taskId);
 	}
 
 }
