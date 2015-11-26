@@ -24,7 +24,7 @@
 	<div class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a href="<c:url value="/"/>" class="navbar-brand">IPM</a>
+				<a href="<c:url value="/"/>" class="navbar-brand"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;IPM</a>
 				<button class="navbar-toggle" type="button" data-toggle="collapse"
 					data-target="#navbar-main">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
@@ -58,7 +58,7 @@
 								data-toggle="dropdown" href="#" id="download">${pageContext.request.userPrincipal.name}
 									<span class="caret"></span>
 									<ul class="dropdown-menu" aria-labelledby="download">
-										<li><a href="javascript:formSubmit()">Logout</a></li>
+										<li><a href="javascript:formSubmit()"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;&nbsp;&nbsp;Logout</a></li>
 									</ul></li>
 						</c:if>
 					</sec:authorize>

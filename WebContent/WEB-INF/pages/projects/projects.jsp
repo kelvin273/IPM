@@ -11,7 +11,8 @@
 
 	<h1>Projects</h1>
 
-	<a href="/IPM/projects/newProject">New project</a>
+	<a href="/IPM/projects/newProject"><span
+		class="glyphicon glyphicon-plus"></span>New project</a>
 
 	<div class="bs-component">
 		<table class="table table-striped table-hover ">
@@ -48,8 +49,10 @@
 											value="<c:out value="${proj.id}"/>" />
 										<input id="projectName" name="projectName" type="hidden"
 											value="<c:out value="${proj.name}"/>" />
-										<input type="submit" value="skills"
-											class="btn btn-success btn-xs" />
+										<button type="submit" class="btn btn-success btn-xs">
+											<span class="glyphicon glyphicon-star-empty"></span>&nbsp;&nbsp;Skills
+										</button>
+
 									</form:form>
 								</div>
 								<div style="float: left">&nbsp;</div>
@@ -60,8 +63,10 @@
 											value="<c:out value="${proj.id}"/>" />
 										<input id="projectName" name="projectName" type="hidden"
 											value="<c:out value="${proj.name}"/>" />
-										<input type="submit" value="resources"
-											class="btn btn-info btn-xs" />
+										<span class=""></span>
+										<button type="submit" class="btn btn-info btn-xs">
+											<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Resources
+										</button>
 									</form:form>
 								</div>
 								<div style="float: left">&nbsp;</div>
@@ -72,8 +77,9 @@
 											value="<c:out value="${proj.id}"/>" />
 										<input id="projectName" name="projectName" type="hidden"
 											value="<c:out value="${proj.name}"/>" />
-										<input type="submit" value="tasks"
-											class="btn btn-warning btn-xs" />
+										<button type="submit" class="btn btn-warning btn-xs">
+											<span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;Tasks
+										</button>
 									</form:form>
 								</div>
 								<div style="float: left">&nbsp;</div>
@@ -84,8 +90,9 @@
 											value="<c:out value="${proj.id}"/>" />
 										<input id="projectName" name="projectName" type="hidden"
 											value="<c:out value="${proj.name}"/>" />
-										<input type="submit" value="plans"
-											class="btn btn-default btn-xs" />
+										<button type="submit" class="btn btn-default btn-xs">
+											<span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Plan
+										</button>
 									</form:form>
 								</div>
 								<div style="float: left">&nbsp;</div>
@@ -94,8 +101,10 @@
 										data-confirm="Are you sure?" style="height:4px">
 										<input id="projectId" name="projectId" type="hidden"
 											value="<c:out value="${proj.id}"/>" />
-										<input type="submit" value="Remove"
-											class="btn btn-danger btn-xs" data-toggle="confirmation" />
+										<button type="submit" class="btn btn-danger btn-xs"
+											data-toggle="confirmation">
+											<span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Remove
+										</button>
 									</form:form>
 								</div>
 							</div>

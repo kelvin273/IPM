@@ -10,7 +10,7 @@
 	<h1>${projectName}</h1>
 	<h2>Skills</h2>
 
-	<a href="/IPM/skills/newSkill">New Skill</a> <br />
+	<a href="/IPM/skills/newSkill"><span class="glyphicon glyphicon-star-empty"></span>New Skill</a> <br />
 
 	<div class="bs-component">
 		<table class="table table-striped table-hover ">
@@ -43,8 +43,10 @@
 								action="/IPM/skills/removeSkill" style="height:4px" data-confirm="Are you sure?">
 								<input id="skillId" name="skillId" type="hidden"
 									value="<c:out value="${s.id}"/>" />
-								<input type="submit" value="Remove"
-									class="btn btn-danger btn-xs" data-toggle="confirmation"/>
+					<button type="submit" class="btn btn-danger btn-xs"
+											data-toggle="confirmation">
+											<span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Remove
+										</button>
 							</form:form></td>
 					</tr>
 				</c:forEach>

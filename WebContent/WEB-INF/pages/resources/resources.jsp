@@ -11,7 +11,7 @@
 	<h1>${projectName} </h1>
 	<h2>Resources</h2>
 
-	<a href="/IPM/resources/newResource">New Resource</a> <br />
+	<a href="/IPM/resources/newResource"><span class="glyphicon glyphicon-user"></span>&nbsp;New Resource</a> <br />
 
 	<div class="bs-component">
 		<table class="table table-striped table-hover ">
@@ -43,8 +43,10 @@
 								action="/IPM/resources/removeResource" style="height:4px" data-confirm="Are you sure?">
 								<input id="resourceId" name="resourceId" type="hidden"
 									value="<c:out value="${r.id}"/>" />
-								<input type="submit" value="Remove"
-									class="btn btn-danger btn-xs" data-toggle="confirmation"/>
+								<button type="submit" class="btn btn-danger btn-xs"
+											data-toggle="confirmation">
+											<span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Remove
+										</button>
 							</form:form></td>
 					</tr>
 				</c:forEach>

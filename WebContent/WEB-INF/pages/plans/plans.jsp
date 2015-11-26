@@ -11,7 +11,7 @@
 	<h1>${projectName} </h1>
 	<h2>Plans</h2>
 
-	<a href="/IPM/plans/newPlan">New Plan</a> <br />
+	<a href="/IPM/plans/newPlan"><span class="glyphicon glyphicon-time"></span>New Plan</a> <br />
 
 	<div class="bs-component">
 		<table class="table table-striped table-hover ">
@@ -37,8 +37,10 @@
 								action="/IPM/plans/removePlan" style="height:4px">
 								<input id="PlanId" name="PlanId" type="hidden"
 									value="<c:out value="${r.id}"/>" />
-								<input type="submit" value="Remove"
-									class="btn btn-danger btn-xs" />
+								<button type="submit" class="btn btn-danger btn-xs"
+											data-toggle="confirmation">
+											<span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Remove
+										</button>
 							</form:form></td>
 					</tr>
 				</c:forEach>
