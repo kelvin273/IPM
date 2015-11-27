@@ -1,10 +1,10 @@
 package com.ipm.web.interfaces;
 
-import com.adsf.ipm.ws.dto.PlanWS;
 import com.ipm.web.dto.Plan;
+import com.ipm.web.dto.PlanRQRS;
 
 public interface WSManager {
 
-    public PlanWS getPlan(Plan plan);
+    public PlanRQRS getPlan(Plan plan);
     
 }

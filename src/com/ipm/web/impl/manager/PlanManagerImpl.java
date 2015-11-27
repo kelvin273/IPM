@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.adsf.ipm.ws.dto.PlanWS;
 import com.ipm.web.dto.Plan;
+import com.ipm.web.dto.PlanRQRS;
 import com.ipm.web.interfaces.PlanManager;
 import com.ipm.web.interfaces.WSManager;
 import com.ipm.web.interfaces.dao.PlanDao;
@@ -25,9 +25,8 @@ public class PlanManagerImpl implements PlanManager {
 	}
 
 	@Override
-	public PlanWS createPlan(Plan plan) {
-		// resourceDao.createPlan(plan);
-		// Call the WS
+	public PlanRQRS createPlan(Plan plan) {
+		// Calls the WS
 		return ws.getPlan(plan);
 
 	}

@@ -3,6 +3,7 @@
 <%@include file="../common/header.jsp"%>
 
 <%@ page import="java.util.Date"%>
+<%@ page import="java.util.Calendar"%>
 <%@ page import="com.adsf.ipm.ws.dto.task.TaskSolution"%>
 <%@ page import="java.text.DecimalFormat"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -38,16 +39,22 @@
         var tasks =  {
             data:[
              <%int i=1;
-             DecimalFormat df = new DecimalFormat("####0,00");
+             DecimalFormat df = new DecimalFormat("####0.00");
              %>
-			<c:forEach items="${plan.tasks.task}" var="task">  
+			<c:forEach items="${plan.planRS.tasks.task}" var="task">  
 				<% TaskSolution taskSolution = (TaskSolution) pageContext.getAttribute("task");
 				String participation ="";
 				for(ResourceTaskPlanSolution rtp :taskSolution.getResources().getResource()){
 					participation += "<br/> "+rtp.getId()+ "("+df.format(rtp.getParticipation())+")";
 				}
 				%>
-				<c:set var="today" value="<%=new Date(new Date().getTime() + (60*60*24*1000) * (int)taskSolution.getTaskStart()+1 )%>" />
+				<%
+				// Calculates the Start date
+				Calendar c = Calendar.getInstance(); 
+				c.add(Calendar.DATE, (new Double(taskSolution.getTaskStart()+1).intValue()));
+				%>
+				<c:set var="today" value="<%=c.getTime()%>" />
+				
 			 	{
 			 		<% float duration = Float.valueOf(df.format((float) taskSolution.getTaskEnd() - (float) taskSolution
 							.getTaskStart())); 
@@ -106,15 +113,15 @@
 	<h4>
 		Total Cost:
 		<fmt:formatNumber type="number" maxFractionDigits="2"
-			value="${plan.projectCost}" />
+			value="${plan.planRS.projectCost}" />
 		&nbsp; Total Time:
 		<fmt:formatNumber type="number" maxFractionDigits="2"
-			value="${plan.projectEnd}" />
+			value="${plan.planRS.projectEnd}" />
 	</h4>
 
 	<h4>Breakdown Structure:</h4>
 	</br>
-	<c:forEach items="${plan.tasks.task}" var="task">
+	<c:forEach items="${plan.planRS.tasks.task}" var="task">
 		<h4>
 			<b>${task.id}</b>
 		</h4>
@@ -143,6 +150,6 @@
 
 	<br /> <br /> <input type="submit" value="Save"
 		class="btn btn-primary " /> <input type="submit" value="Share"
-		class="btn btn-info " /> <br /> <br /> Debug: ${plan.tasks.task}
+		class="btn btn-info " /> <br /> <br /> Debug: ${plan.planRS.tasks.task}
 </div>
 <%@include file="../common/footer.jsp"%>

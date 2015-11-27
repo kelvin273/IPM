@@ -11,7 +11,6 @@ import javax.xml.ws.handler.Handler;
 import org.springframework.context.annotation.Configuration;
 
 import com.adsf.ipm.ws.PlanService;
-import com.adsf.ipm.ws.dto.PlanWS;
 import com.adsf.ipm.ws.dto.PrecedentTaskWS;
 import com.adsf.ipm.ws.dto.PrecedentTasksWS;
 import com.adsf.ipm.ws.dto.ResourceWS;
@@ -19,6 +18,7 @@ import com.adsf.ipm.ws.dto.ResourcesWS;
 import com.adsf.ipm.ws.dto.TaskWS;
 import com.adsf.ipm.ws.dto.TasksWS;
 import com.ipm.web.dto.Plan;
+import com.ipm.web.dto.PlanRQRS;
 import com.ipm.web.dto.Resource;
 import com.ipm.web.dto.Task;
 import com.ipm.web.impl.MyServiceLogHandler;
@@ -32,11 +32,10 @@ public class WSManagerImpl implements WSManager {
 	private String serviceName;
 
 	@Override
-	public PlanWS getPlan(Plan plan) {
-		PlanWS planWS = new PlanWS();
+	public PlanRQRS getPlan(Plan plan) {
+		PlanRQRS planRQRS = new PlanRQRS();
 		try {
 			URL url = new URL(wsdlURL);
-			// URL url = new URL("http://localhost:8888/ts?wsdl");
 			QName qname = new QName(qaName, serviceName);
 			Service planService = Service.create(url, qname);
 			PlanService service = planService.getPort(PlanService.class);
@@ -49,11 +48,13 @@ public class WSManagerImpl implements WSManager {
 
 			ResourcesWS resources = mapResources(plan);
 			TasksWS tasks = mapTasks(plan);
-			planWS = service.getPlan(resources, tasks);
+			planRQRS.setResourcesRQ(resources);
+			planRQRS.setTasksRQ(tasks);
+			planRQRS.setPlanRS(service.getPlan(resources, tasks));
 		} catch (Exception e) {
 			System.out.println("ERROR" + e.getMessage());
 		}
-		return planWS;
+		return planRQRS;
 	}
 
 	private TasksWS mapTasks(Plan plan) {
