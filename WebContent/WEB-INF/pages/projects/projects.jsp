@@ -49,7 +49,7 @@
 											value="<c:out value="${proj.id}"/>" />
 										<input id="projectName" name="projectName" type="hidden"
 											value="<c:out value="${proj.name}"/>" />
-										<button type="submit" class="btn btn-success btn-xs">
+										<button type="submit" class="btn btn-blue btn-xs">
 											<span class="glyphicon glyphicon-star-empty"></span>&nbsp;&nbsp;Skills
 										</button>
 

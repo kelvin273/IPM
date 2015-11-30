@@ -48,7 +48,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<form:label path="salary" class="col-lg-2 control-label">Cost</form:label>
+				<form:label path="salary" class="col-lg-2 control-label">Cost per day</form:label>
 				<div class="col-lg-10">
 					<form:input path="salary" class="form-control" placeholder="Cost" />
 				</div>

@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<form:label path="effort" class="col-lg-2 control-label">Effort</form:label>
+				<form:label path="effort" class="col-lg-2 control-label">Effort (Days)</form:label>
 				<div class="col-lg-10">
 					<form:input path="effort" class="form-control"
 						placeholder="Effort" />

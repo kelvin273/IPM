@@ -39,7 +39,7 @@
         var tasks =  {
             data:[
              <%int i=1;
-             DecimalFormat df = new DecimalFormat("####0.00");
+           		DecimalFormat df = new DecimalFormat("####0.00");
              %>
 			<c:forEach items="${plan.planRS.tasks.task}" var="task">  
 				<% TaskSolution taskSolution = (TaskSolution) pageContext.getAttribute("task");
@@ -54,21 +54,16 @@
 				c.add(Calendar.DATE, (new Double(taskSolution.getTaskStart()+1).intValue()));
 				%>
 				<c:set var="today" value="<%=c.getTime()%>" />
-				
 			 	{
-			 		<% float duration = Float.valueOf(df.format((float) taskSolution.getTaskEnd() - (float) taskSolution
-							.getTaskStart())); 
-			 			float x = duration - (int) duration;
-			 			int finalDuration = 0;
+			 		<%double duration = taskSolution.getDuration(); 
+			 			double x = duration - (int) duration;
+			 			long finalDuration = 0;
 						if(0 < x){
 							finalDuration = (int) Math.ceil(duration);
 						}else{
 							finalDuration = Math.round(duration);
-						}
-					
-					%>
-			 		id:<%=i++%>, text:"<%=taskSolution.getId()%>", start_date:"<fmt:formatDate type="date" value="${today}" pattern="dd-MM-yyyy"/>", duration:<%=finalDuration%>,realDuration:<%=(df.format((float) taskSolution.getTaskEnd() - (float) taskSolution
-								.getTaskStart()))%>, order:10,
+						}%>
+			 		id:<%=i++%>, text:"<%=taskSolution.getId()%>", start_date:"<fmt:formatDate type="date" value="${today}" pattern="dd-MM-yyyy"/>", duration:<%=finalDuration%>,realDuration:<%=taskSolution.getDuration()%>, order:10,
                  progress:0.0, open: true, participation:"<%=participation%>"
                 },
 			</c:forEach>
@@ -111,19 +106,25 @@
 
 
 	<h4>
-		Total Cost:
+		<b>Total Cost:</b>
 		<fmt:formatNumber type="number" maxFractionDigits="2"
-			value="${plan.planRS.projectCost}" />
-		&nbsp; Total Time:
+			value="${plan.planRS.projectCost}" /> &euro;
+		<br /> <b>Total Time</b>:
 		<fmt:formatNumber type="number" maxFractionDigits="2"
 			value="${plan.planRS.projectEnd}" />
+		Days
 	</h4>
 
-	<h4>Breakdown Structure:</h4>
-	</br>
+	<br /> <br />
+	<h3>Breakdown Structure</h3>
 	<c:forEach items="${plan.planRS.tasks.task}" var="task">
 		<h4>
-			<b>${task.id}</b>
+			<b>${task.id}</b> (Total effort: ${task.effort} Days
+			<c:set var="total" value="${task.taskEnd - task.taskStart}" />
+			, Duration:
+			<fmt:formatNumber type="number" maxFractionDigits="2"
+				value="${total}" />
+			Days)
 		</h4>
 		<table class="table table-striped table-hover ">
 			<thead>
@@ -133,10 +134,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:set var="total" value="${task.taskEnd - task.taskStart}" />
-				Total time:
-				<fmt:formatNumber type="number" maxFractionDigits="2"
-					value="${total}" />
 				<c:forEach items="${task.resources.resource}" var="resource">
 					<tr>
 						<td>${resource.id}</td>
@@ -146,10 +143,12 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<br />
 	</c:forEach>
 
 	<br /> <br /> <input type="submit" value="Save"
 		class="btn btn-primary " /> <input type="submit" value="Share"
-		class="btn btn-info " /> <br /> <br /> Debug: ${plan.planRS.tasks.task}
+		class="btn btn-info " /> <br /> <br /> Debug:
+	${plan.planRS.tasks.task}
 </div>
 <%@include file="../common/footer.jsp"%>
