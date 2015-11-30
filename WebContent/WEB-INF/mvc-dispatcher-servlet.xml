@@ -66,7 +66,7 @@
 	<!-- </bean> -->
 
 	<bean id="WSManagerImpl" class="com.ipm.web.impl.manager.WSManagerImpl">
-		<property name="wsdlURL" value="http://localhost:8888/ts?wsdl" />
+		<property name="wsdlURL" value="http://damp-waters-1269.herokuapp.com/GetPlan?wsdl" />
 		<property name="qaName" value="http://impl.ws.ipm.adsf.com/" />
 		<property name="serviceName" value="PlanServiceImplService" />
 	</bean>

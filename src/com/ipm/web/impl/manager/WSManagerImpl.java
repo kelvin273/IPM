@@ -59,7 +59,7 @@ public class WSManagerImpl implements WSManager {
 
 	private TasksWS mapTasks(Plan plan) {
 		TasksWS tasks = new TasksWS();
-		tasks.setTasks(new ArrayList<TaskWS>());
+		tasks.setTask(new ArrayList<TaskWS>());
 		for (Task task : plan.getTasks()) {
 			addTask(tasks, task);
 		}
@@ -100,7 +100,7 @@ public class WSManagerImpl implements WSManager {
 				t1.getPrecedentTasksWS().getPrecedentTasksWS().add(pt);
 			}
 		}
-		tasks.getTasks().add(t1);
+		tasks.getTask().add(t1);
 	}
 
 	public void setWsdlURL(String wsdlURL) {
